@@ -48,19 +48,10 @@ function onReset() {
 }
 </script>
 <template>
-  <q-card>
+  <q-card flat>
     <q-card-section>
       <div>
-        <q-expansion-item
-          expand-separator
-          label="Reward JSON"
-        >
-          <q-card>
-            <q-card-section>
-              <pre>{{ reward }}</pre>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
+        <DevJson :jsonable="reward" />
         <q-form
           class="q-gutter-md"
           @submit="onSubmit"
@@ -79,9 +70,9 @@ function onReset() {
               </q-avatar>
             </template>
           </q-file>
-          <div>
-            <q-btn label="Submit" type="submit" color="primary" />
+          <div class="flex justify-end">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn label="Submit" type="submit" color="primary" />
           </div>
         </q-form>
       </div>

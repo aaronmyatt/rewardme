@@ -19,13 +19,13 @@ function onSubmit(profile: ProfileType) {
 </script>
 
 <template>
-  <div>
+  <div class="w-full md:w-1/2 mx-auto">
     <q-toolbar>
       <q-toolbar-title>
         New Profile
       </q-toolbar-title>
     </q-toolbar>
 
-    <ProfileForm @submit="onSubmit" />
+    <NewProfileForm @submit="onSubmit" />
   </div>
 </template>

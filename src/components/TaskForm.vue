@@ -36,19 +36,10 @@ function onReset() {
 </script>
 
 <template>
-  <q-card>
+  <q-card flat>
     <q-card-section>
       <div>
-        <q-expansion-item
-          expand-separator
-          label="Task JSON"
-        >
-          <q-card>
-            <q-card-section>
-              <pre>{{ task }}</pre>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
+        <DevJson :jsonable="task" />
 
         <q-form
           class="q-gutter-md"
@@ -57,9 +48,9 @@ function onReset() {
         >
           <q-input v-model="task.name" label="Name" required stack-label />
           <q-input readonly :placeholder="props.reward?.name" model-value="" label="Reward" stack-label />
-          <div>
-            <q-btn label="Submit" type="submit" color="primary" />
+          <div class="flex justify-end">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn label="Submit" type="submit" color="primary" />
           </div>
         </q-form>
       </div>

@@ -24,7 +24,7 @@ function onSubmit(profile: ProfileType) {
         Settings
       </q-toolbar-title>
     </q-toolbar>
-    <q-card>
+    <q-card flat>
       <q-card-section>
         <q-toolbar class="text-white bg-primary">
           <q-toolbar-title>
