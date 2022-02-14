@@ -1,33 +1,25 @@
-<script lang="ts">
-import maleAvatar from '~/png/maleAvatar.png'
-import femaleAvatar from '~/png/femaleAvatar.png'
+<script setup lang="ts">
+import MaleAvatar from '~icons/custom/MaleAvatar'
+import FemaleAvatar from '~icons/custom/FemaleAvatar'
 
-export default {
-  setup() {
-    const profileImage = ref(femaleAvatar)
+const profileImage = ref('female')
 
-    const interval = setInterval(() => {
-      if (profileImage.value === maleAvatar)
-        profileImage.value = femaleAvatar
+const interval = setInterval(() => {
+  if (profileImage.value === 'male')
+    profileImage.value = 'female'
 
-      else
-        profileImage.value = maleAvatar
-    }, 5000)
-    return {
-      profileImage, interval,
-    }
-  },
-  unmounted() {
-    clearInterval(this.interval)
-  },
-}
+  else
+    profileImage.value = 'male'
+}, 5000)
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
+
 </script>
-
 <template>
-  <q-img
-    ratio="1"
-    :src="profileImage"
-  >
-    <slot />
-  </q-img>
+  <div>
+    <MaleAvatar v-if="profileImage === 'male'" class="w-full h-auto" />
+    <FemaleAvatar v-else class="w-full h-auto" />
+  </div>
 </template>

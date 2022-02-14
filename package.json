@@ -29,7 +29,6 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.16.0",
     "@iconify-json/carbon": "^1.0.13",
-    "@iconify-json/la": "^1.0.1",
     "@intlify/vite-plugin-vue-i18n": "^3.2.1",
     "@quasar/vite-plugin": "^1.0.4",
     "@types/markdown-it-link-attributes": "^3.0.1",

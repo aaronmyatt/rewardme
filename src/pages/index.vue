@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { z } from 'zod'
 import type { Reward } from '~/schemas'
-import defaultRewardImage from '~/png/reward.png'
+import DefaultReward from '~icons/custom/Reward'
 import imageCache from '~/composites/imageCache'
 import { useProfiles } from '~/stores/profiles'
 import useActiveProfileImage from '~/composables/useActiveProfileImage'
@@ -62,13 +62,7 @@ onUnmounted(() => {
       <div class="Profiles flex">
         <q-btn class="flex-1" no-caps push to="/profiles" padding="none">
           <q-img v-if="profileImage" :src="profileImage" class="rounded" />
-          <DefaultAvatar v-else>
-            <div text="2xl" font="bold">
-              <p>Profiles</p><p text="xs">
-                Start here!
-              </p>
-            </div>
-          </DefaultAvatar>
+          <DefaultAvatar v-else class="w-full h-auto" />
           <div font="bold">
             Profiles
           </div>
@@ -77,10 +71,12 @@ onUnmounted(() => {
       <div class="Rewards flex">
         <q-btn class="flex-1" padding="none" no-caps push to="/rewards">
           <q-img
+            v-if="rewardImages.length > 0"
             class="rounded"
-            :src="rewardImages.length > 0 ? imageCycle.state : defaultRewardImage"
+            :src="imageCycle.state"
             ratio="1"
           />
+          <DefaultReward v-else class="w-full h-auto" />
           <div>
             <span font="bold">Rewards</span>
           </div>
