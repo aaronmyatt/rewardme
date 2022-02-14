@@ -28,7 +28,7 @@ export const Profile = z.object(
     createddate: z.string().default(new Date().toUTCString()),
     updateddate: z.string().default(new Date().toUTCString()),
     id: z.string().default(() => uuidv4()),
-    name: z.string(),
+    name: z.string().refine(val => !!val.length),
     nickname: z.string().default(''),
     dateofbirth: z.string().default(''),
     hobby: z.string().default(''),
