@@ -1,56 +1,46 @@
 <script setup lang="ts">
-import coverPng from '~/png/reward.png'
+import DefaultReward from '~icons/custom/Reward'
 import { useProfiles } from '~/stores/profiles'
 const store = useProfiles()
-const rewards = store.active.rewards
+const rewards = store.active?.rewards
 </script>
 
 <template>
-  <q-page>
-    <div class="flex flex-col items-center">
-      <q-card w="full md:2/3 xl:1/2">
+  <q-page class="p-4 xl:w-2/3 md:mx-auto space-y-2 column">
+    <Banner>
+      <h1 class="font-bold text-xl">
+        Create Rewards
+      </h1>
+      <p>Add rewards your child desires, let the app and the tasks you add coach them through to achieving it.</p>
+    </Banner>
+    <q-card flat>
+      <q-card-section p="0px">
+        <q-btn
+          :disable="!!!rewards"
+          flat
+          no-caps
+          size="medium"
+          class="py-4 w-full rounded-xl text-primary bg-secondary"
+          to="/rewards/new"
+          icon-right="add"
+          label="Add Reward"
+        />
+      </q-card-section>
+      <template v-if="rewards && Object.keys(rewards).length > 0">
         <q-card-section>
-          <q-img
-            :ratio="16/9"
-            :src="coverPng"
-            spinner-color="primary"
-            spinner-size="82px"
-          >
-            <div class="fixed bottom-0 left-0 font-bold text-xl">
-              Rewards
-            </div>
-          </q-img>
+          <RewardList :rewards="rewards" class="rounded-xl" />
         </q-card-section>
-        <q-card-section>
-          <q-btn stretch round no-caps w="full" class="bg-primary text-secondary" to="/rewards/new">
-            <carbon-add text="lg" />
-            <span>Add Reward</span>
-          </q-btn>
-        </q-card-section>
-        <template v-if="Object.keys(rewards).length > 0">
-          <q-card-section>
-            <RewardList :rewards="rewards" class="rounded-xl" />
-          </q-card-section>
-        </template>
-        <template v-else>
-          <q-card-section>
-            <div class="flex space-x-4 justify-center">
-              <p>Add a reward</p>
-              <carbon-arrow-down-right />
-            </div>
-          </q-card-section>
-        </template>
-      </q-card>
-    </div>
+      </template>
+    </q-card>
+    <q-space />
+    <DefaultReward class="w-1/2 h-auto mx-auto" />
 
     <q-page-sticky
       v-if="store.active"
       position="bottom-right"
       :offset="[25,25]"
     >
-      <q-btn fab class="bg-primary text-secondary" to="/rewards/new">
-        <span class="pr-2">Add Reward</span> <carbon-gift style="font-size: large;" />
-      </q-btn>
+      <q-btn :disable="!!!rewards" padding="15px" class="bg-primary text-secondary" to="/rewards/new" icon-right="redeem" label="Add Reward" no-caps />
     </q-page-sticky>
   </q-page>
 </template>

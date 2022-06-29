@@ -2,6 +2,7 @@
 import type { z } from 'zod'
 import type { Reward } from '~/schemas'
 import DefaultReward from '~icons/custom/Reward'
+import DefaultTask from '~icons/custom/Task'
 import imageCache from '~/composites/imageCache'
 import { useProfiles } from '~/stores/profiles'
 import useActiveProfileImage from '~/composables/useActiveProfileImage'
@@ -52,12 +53,13 @@ onUnmounted(() => {
 
 <template>
   <q-page class="p-4 xl:w-2/3 md:mx-auto">
-    <div class="bg-primary rounded-xl p-4 text-center text-white">
-      <p class="font-bold text-xl">
+    <Banner>
+      <h1 class="font-bold text-2xl">
         Welcome to Reward Me!
-      </p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-    </div>
+      </h1>
+      <p>Improving behaviour through effective rewards</p>
+    </Banner>
+
     <div class="dashboardcontainer pt-4">
       <div class="Profiles flex">
         <q-btn class="flex-1" no-caps push to="/profiles" padding="none">
@@ -84,12 +86,16 @@ onUnmounted(() => {
       </div>
       <div class="Tasks">
         <div class="w-full md:w-2/3 mx-auto">
-          <q-card flat>
+          <q-card flat class="text-center bg-secondary text-primary shadow-2 rounded-xl">
             <q-card-section>
-              <q-toolbar inset class="bg-primary text-white shadow-2 rounded-t-xl">
-                <q-toolbar-title>Pending Tasks</q-toolbar-title>
+              <q-toolbar>
+                <q-toolbar-title class="text-xl">
+                  Pending Tasks
+                </q-toolbar-title>
               </q-toolbar>
+              <p>Reward tasks will appear here when you've added some</p>
               <RewardList :rewards="tasksPending" class="rounded-b-xl" />
+              <DefaultTask class="w-full h-auto xl:px-30" />
             </q-card-section>
           </q-card>
         </div>
