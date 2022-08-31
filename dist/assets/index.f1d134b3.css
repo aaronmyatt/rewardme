@@ -1,0 +1,1 @@
+.reward-name-container{display:grid;grid-template-columns:1fr 0fr;grid-template-rows:1fr;gap:0 0;grid-auto-flow:row;justify-items:stretch;justify-content:space-evenly;grid-template-areas:"name claimed"}.name{justify-self:start;grid-area:name}.claimed{justify-self:end;grid-area:claimed}
