@@ -21,6 +21,7 @@ import { quasar as Quasar, transformAssetUrls } from '@quasar/vite-plugin'
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 export default defineConfig({
+  base: '/rewardme/',
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
