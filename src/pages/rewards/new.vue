@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import type { z } from 'zod'
-import { Reward } from '~/schemas'
-import useRewards from '~/composables/useRewards'
-
-type RewardType = z.infer<typeof Reward>
+import { store } from '~/composites/store'
+import { StoreKeys } from '~/schemas'
+import type { IReward } from '~/schemas'
 const router = useRouter()
-const rewardStore = useRewards()
 
-function onSubmit(reward: RewardType) {
-  const safeReward = Reward.safeParse(reward)
-  if (safeReward.success) {
-    rewardStore.storeNewReward(safeReward.data)
-    router.push('/rewards')
-  }
+function onSubmit(reward: IReward) {
+  const rewards = store.getItem(StoreKeys.REWARDS) || []
+  rewards.push(reward)
+  store.setItem(StoreKeys.REWARDS, rewards)
+  router.push('/rewards')
 }
 
 </script>

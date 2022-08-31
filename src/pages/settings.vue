@@ -1,18 +1,32 @@
 <script setup lang="ts">
-import type { z } from 'zod'
-import { Profile } from '~/schemas'
-import { useProfiles } from '~/stores/profiles'
+import { useQuasar } from 'quasar'
+import useProfiles from '~/composables/useProfiles'
+import { store } from '~/composites/store'
+import { StoreKeys } from '~/schemas'
+import type { IProfile } from '~/schemas'
+const { getActiveProfile } = useProfiles()
+const $q = useQuasar()
 
-type ProfileType = z.infer<typeof Profile>
-const profileStore = useProfiles()
+const profile = ref<IProfile>()
+
+onMounted(() => {
+  const activeProfile = getActiveProfile()
+  if (activeProfile)
+    profile.value = activeProfile
+})
+
 const router = useRouter()
 
-function onSubmit(profile: ProfileType) {
-  const safeProfile = Profile.safeParse(profile)
-  if (safeProfile.success) {
-    Object.assign(profileStore.active, safeProfile.data)
-    router.push('/profiles')
-  }
+function onSubmit(profile: IProfile) {
+  const profiles = store.getItem(StoreKeys.PROFILES) || []
+  const updatedProfiles = profiles.filter((p: IProfile) => p.id !== profile.id)
+  updatedProfiles.push(profile)
+  store.setItem(StoreKeys.PROFILES, updatedProfiles)
+
+  $q.notify({
+    type: 'positive',
+    message: 'Profile Updated',
+  })
 }
 
 </script>
@@ -33,7 +47,7 @@ function onSubmit(profile: ProfileType) {
         </q-toolbar>
       </q-card-section>
       <q-card-section>
-        <ProfileForm v-if="profileStore.profiles.length > 0" :model-value="profileStore.active" @submit="onSubmit" />
+        <ProfileForm v-if="profile" :model-value="profile" @submit="onSubmit" />
       </q-card-section>
     </q-card>
   </div>

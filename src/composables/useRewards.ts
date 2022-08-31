@@ -1,31 +1,14 @@
-import type { z } from 'zod'
-import { useProfiles } from '~/stores/profiles'
-import type { Reward } from '~/schemas'
+import { store } from '~/composites/store'
+import { StoreKeys } from '~/schemas'
+import type { IReward } from '~/schemas'
 
-type RewardType = z.infer<typeof Reward>
+const rewards = ref([] as IReward[])
 
 export default function() {
-  const profileStore = useProfiles()
-  const rewards = computed(() => {
-    return profileStore.active?.rewards
+  onMounted(() => {
+    rewards.value = store.getItem(StoreKeys.REWARDS) || []
   })
-
-  function storeNewReward(reward: RewardType) {
-    if (reward.id in profileStore.active.rewards) {
-      // update
-      reward.updateddate = new Date().toUTCString()
-    }
-    profileStore.active.rewards[reward.id] = reward
-    return reward
-  }
-
-  function getById(id: string) {
-    return profileStore.active.rewards[id]
-  }
-
   return {
     rewards,
-    storeNewReward,
-    getById,
   }
 }

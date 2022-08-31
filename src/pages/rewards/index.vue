@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import useRewards from '~/composables/useRewards'
+// noinspection TypeScriptCheckImport
 import DefaultReward from '~icons/custom/Reward'
-import { useProfiles } from '~/stores/profiles'
-const store = useProfiles()
-const rewards = store.active?.rewards
+const { rewards } = useRewards()
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const rewards = store.active?.rewards
           label="Add Reward"
         />
       </q-card-section>
-      <template v-if="rewards && Object.keys(rewards).length > 0">
+      <template v-if="rewards.length > 0">
         <q-card-section>
           <RewardList :rewards="rewards" class="rounded-xl" />
         </q-card-section>
@@ -36,7 +36,6 @@ const rewards = store.active?.rewards
     <DefaultReward class="w-1/2 h-auto mx-auto" />
 
     <q-page-sticky
-      v-if="store.active"
       position="bottom-right"
       :offset="[25,25]"
     >

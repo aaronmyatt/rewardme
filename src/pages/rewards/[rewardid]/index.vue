@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import type { z } from 'zod'
 import imageCache from '~/composites/imageCache'
-import type { Task } from '~/schemas'
-import { useProfiles } from '~/stores/profiles'
+import type { IReward } from '~/schemas'
 import useRewards from '~/composables/useRewards'
-
-type TaskType = z.infer<typeof Task>
 
 const props = defineProps({
   rewardid: {
@@ -13,39 +9,22 @@ const props = defineProps({
     required: true,
   },
 })
-
 const router = useRouter()
-const profileStore = useProfiles()
-const rewardStore = useRewards()
-const rewards = profileStore.active.rewards
-const reward = rewards[props.rewardid]
-const tasks = reward.tasks
-
+const { rewards } = useRewards()
+const reward = ref<IReward>()
+const rewardImage = ref()
 const confirmDelete = ref(false)
 
-function deleteReward() {
-  delete rewards[props.rewardid]
-  router.push('/rewards')
-}
+onMounted(() => {
+  const matchingReward = rewards.value.find(reward => reward.id === props.rewardid)
+  if (matchingReward) {
+    matchingReward.image && imageCache.getImage(matchingReward.image).then((image) => {
+      rewardImage.value = image
+    })
+    reward.value = matchingReward
+  }
 
-function deleteTask(task: TaskType) {
-  delete tasks[task.id]
-}
-
-const rewardImage = ref()
-reward.image && imageCache.getImage(reward.image).then((image) => {
-  rewardImage.value = image
-})
-
-watch(tasks, (newTasks) => {
-  const allComplete = Object.values(newTasks).filter(task => !task.done).length === 0
-  if (allComplete)
-    reward.claimed = true
-
-  else
-    reward.claimed = false
-
-  rewardStore.storeNewReward(reward)
+  else { router.push('/rewards') }
 })
 
 </script>
@@ -53,7 +32,7 @@ watch(tasks, (newTasks) => {
 <template>
   <q-page>
     <div class="flex flex-col items-center">
-      <q-card w="full md:2/3 xl:1/2">
+      <q-card v-if="reward" w="full md:2/3 xl:1/2">
         <q-card-section>
           <q-img
             :ratio="16/9"
@@ -83,71 +62,6 @@ watch(tasks, (newTasks) => {
             <carbon-edit />
           </q-btn>
           <RewardProgress m="t-2" :reward="reward" />
-        </q-card-section>
-        <q-card-section>
-          <q-btn
-            stretch round no-caps w="full" class="bg-primary text-secondary" :to="{
-              name: 'tasks-new-reward',
-              params: {
-                reward: reward.id
-              }
-            }"
-          >
-            <carbon-add text="lg" />
-            <span>Add Task</span>
-          </q-btn>
-        </q-card-section>
-        <q-card-section>
-          <q-list>
-            <q-item-section>
-              <q-item-label header>
-                Tasks
-              </q-item-label>
-            </q-item-section>
-            <q-item v-for="task in tasks" :key="task.id" tag="label">
-              <q-item-section side top>
-                <q-checkbox v-model="task.done" color="positive" />
-                <div text="xs center" w="full" :class="{'text-negative': !task.done, 'text-positive': task.done}">
-                  Done
-                </div>
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>{{ task.name }}</q-item-label>
-                <q-item-label caption>
-                  <LastUpdated :date="task.updateddate" />
-                </q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-btn stretch>
-                  <carbon-overflow-menu-vertical />
-                  <q-menu>
-                    <q-list style="min-width: 100px">
-                      <q-item v-close-popup clickable class="bg-red-6 text-dark" @click="deleteTask(task)">
-                        <q-item-section class="flex items-center">
-                          <carbon-trash-can class="text-xl" />
-                        </q-item-section>
-                      </q-item>
-                      <q-separator />
-                      <q-item
-                        v-close-popup clickable class="bg-primary" :to="{
-                          name: 'rewards-rewardid-edit-taskid',
-                          params: {
-                            rewardid: reward.id,
-                            taskid: task.id
-                          }
-                        }"
-                      >
-                        <q-item-section class="flex items-center">
-                          <carbon-edit class="text-xl" />
-                        </q-item-section>
-                      </q-item>
-                    </q-list>
-                  </q-menu>
-                </q-btn>
-              </q-item-section>
-            </q-item>
-          </q-list>
         </q-card-section>
       </q-card>
     </div>
@@ -192,7 +106,7 @@ meta:
   display: grid;
   grid-template-columns: 1fr 0.0fr;
   grid-template-rows: 1fr;
-  gap: 0px 0px;
+  gap: 0 0;
   grid-auto-flow: row;
   justify-items: stretch;
   justify-content: space-evenly;

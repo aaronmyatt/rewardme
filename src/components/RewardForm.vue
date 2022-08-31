@@ -1,22 +1,39 @@
 <script setup lang="ts">
-import type { z } from 'zod'
+import { useQuasar } from 'quasar'
 import imageCache from '~/composites/imageCache'
 import { Reward } from '~/schemas'
+import type { IReward } from '~/schemas'
+import useProfiles from '~/composables/useProfiles'
+const $q = useQuasar()
+const router = useRouter()
 
-type RewardType = z.infer<typeof Reward>
-
-const props = defineProps({
-  modelValue: {
-    default: {
-      image: '',
-      name: '',
-    } as RewardType,
-  },
-})
-
+const { getActiveProfile } = useProfiles()
+const props = defineProps<{
+  modelValue?: IReward
+}>()
 const emits = defineEmits(['submit'])
+const reward = reactive(props.modelValue || {} as IReward)
 
-const reward = reactive(Reward.parse(props.modelValue) as RewardType)
+onMounted(() => {
+  const activeProfile = getActiveProfile()
+  if (activeProfile && activeProfile.id) {
+    Object.assign(reward, {
+      ...reward,
+      profile: activeProfile.id,
+    })
+  }
+  else {
+    $q.notify({
+      type: 'warning',
+      caption: 'Please add or activate a profile first',
+      timeout: 0,
+      closeBtn: true,
+      actions: [
+        { label: 'Go to Profiles', handler: () => router.push('/profiles') },
+      ],
+    })
+  }
+})
 
 const rewardImage = ref()
 const previewImage = ref()
@@ -58,6 +75,7 @@ function onReset() {
           @reset="onReset"
         >
           <q-input v-model="reward.name" label="Name" required />
+          <q-input v-model.number="reward.milestone" type="number" label="Target" required />
           <q-file v-model="rewardImage" :placeholder="reward.image" outlined>
             <template #prepend>
               <q-icon name="attach_file" />

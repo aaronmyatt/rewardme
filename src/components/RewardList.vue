@@ -25,44 +25,30 @@
     </q-item>
   </q-list>
 </template>
-<script lang="ts">
-import type { z } from 'zod'
+<script setup lang="ts">
 import imageCache from '~/composites/imageCache'
-import type { Reward } from '~/schemas'
+import type { IReward } from '~/schemas'
 
-type RewardType = z.infer<typeof Reward>
+const props = defineProps<{
+  rewards: IReward[]
+}>()
 
-export default {
-  props: ['rewards'],
-  setup(props) {
-    const rewards = props.rewards as Record<string, RewardType>
-    const rewardImages = ref({} as Record<string, string>)
+const rewardImages = ref({} as Record<string, string>)
 
-    Object.values(rewards)
-      .map(async(reward: RewardType): Promise<void> => {
-        if (reward.image !== undefined) {
-          const image = await imageCache.getImage(reward.image)
-          if (image) rewardImages.value[reward.image] = image
-        }
-      })
-
-    function byDateKey(dateKey: string) {
-      return (first: RewardType, second: RewardType) => {
-        return new Date(second[dateKey]) - new Date(first[dateKey])
-      }
+props.rewards
+  .map(async(reward: IReward): Promise<void> => {
+    if (reward.image !== undefined) {
+      const image = await imageCache.getImage(reward.image)
+      if (image) rewardImages.value[reward.image] = image
     }
+  })
 
-    function excludeFalseKey(falseKey: string) {
-      return (item: RewardType) => {
-        return !item[falseKey]
-      }
-    }
-
-    const sortedRewards = Object.values(rewards).sort(byDateKey('updateddate')).filter(excludeFalseKey('claimed'))
-    return {
-      sortedRewards,
-      rewardImages,
-    }
-  },
+function byDateKey(dateKey: keyof Pick<IReward, 'updateddate' | 'createddate'>) {
+  return (first: IReward, second: IReward) => {
+    return (new Date(second[dateKey])).valueOf() - (new Date(first[dateKey]).valueOf())
+  }
 }
+
+const sortedRewards = [...props.rewards] // copy before mutating
+  .sort(byDateKey('updateddate'))
 </script>

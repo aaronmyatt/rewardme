@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type { z } from 'zod'
-import { Reward } from '~/schemas'
 import useRewards from '~/composables/useRewards'
-import { useProfiles } from '~/stores/profiles'
-
-type RewardType = z.infer<typeof Reward>
+import { store } from '~/composites/store'
+import type { IReward } from '~/schemas'
+import { StoreKeys } from '~/schemas'
 
 const props = defineProps({
   rewardid: {
@@ -14,23 +12,28 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const { rewards } = useRewards()
+const reward = ref<IReward>()
 
-const profileStore = useProfiles()
-const rewards = profileStore.active.rewards
-const reward = rewards[props.rewardid]
-const rewardStore = useRewards()
+onMounted(() => {
+  const matchingReward = rewards.value.find(reward => reward.id === props.rewardid)
+  if (matchingReward)
+    reward.value = matchingReward
 
-function onSubmit(reward: RewardType) {
-  const safeReward = Reward.safeParse(reward)
-  if (safeReward.success) {
-    rewardStore.storeNewReward(safeReward.data)
-    router.push({
-      name: 'rewards-rewardid',
-      params: {
-        rewardid: props.rewardid,
-      },
-    })
-  }
+  else router.push('/rewards')
+})
+
+function onSubmit(reward: IReward) {
+  const rewards = store.getItem(StoreKeys.REWARDS) || []
+  const updatedRewards = rewards.filter((r: IReward) => r.id !== reward.id)
+  updatedRewards.push(reward)
+  store.setItem(StoreKeys.REWARDS, updatedRewards)
+  router.push({
+    name: 'rewards-rewardid',
+    params: {
+      rewardid: props.rewardid,
+    },
+  })
 }
 
 </script>
@@ -42,6 +45,6 @@ function onSubmit(reward: RewardType) {
         Edit Reward
       </q-toolbar-title>
     </q-toolbar>
-    <RewardForm :model-value="reward" @submit="onSubmit" />
+    <RewardForm v-if="reward" :model-value="reward" @submit="onSubmit" />
   </div>
 </template>

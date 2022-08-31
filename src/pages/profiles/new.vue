@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import type { z } from 'zod'
-import { Profile } from '~/schemas'
-import { useProfiles } from '~/stores/profiles'
+import useProfiles from '~/composables/useProfiles'
+import type { IProfile } from '~/schemas'
 
-type ProfileType = z.infer<typeof Profile>
 const router = useRouter()
-const profileStore = useProfiles()
-
-function onSubmit(profile: ProfileType) {
-  const safeProfile = Profile.safeParse(profile)
-  if (safeProfile.success) {
-    profileStore.storeNewProfile(safeProfile.data)
-    profileStore.setActiveProfile(safeProfile.data)
-    router.push('/')
-  }
+const { setActiveProfile, profiles } = useProfiles()
+function onSubmit(profile: IProfile) {
+  profiles.push(profile)
+  setActiveProfile(profile)
+  router.push('/profiles')
 }
 
 </script>

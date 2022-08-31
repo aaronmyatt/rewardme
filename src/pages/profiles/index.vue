@@ -1,27 +1,10 @@
 <script setup lang="ts">
-import type { z } from 'zod'
+import useProfiles from '~/composables/useProfiles'
+// noinspection TypeScriptCheckImport
 import Kids from '~icons/custom/Kids'
-import type { Profile } from '~/schemas'
-import imageCache from '~/composites/imageCache'
-import { useProfiles } from '~/stores/profiles'
+const { archiveProfile, activateAndEdit, setActiveProfile, profiles, profileImages } = useProfiles()
 
-type ProfileType = z.infer<typeof Profile>
-const router = useRouter()
-const store = useProfiles()
-const profileImages = ref({} as Record<string, string>)
-
-Object.values(store.profiles)
-  .map(async(profile) => {
-    if (profile.image !== undefined) {
-      const image = await imageCache.getImage(profile.image)
-      if (image) profileImages.value[profile.image] = image
-    }
-  })
-
-function activateAndEdit(profile: ProfileType) {
-  store.setActiveProfile(profile)
-  router.push('/settings')
-}
+const activeProfiles = computed(() => profiles.filter(profile => !profile.archived))
 </script>
 
 <template>
@@ -30,7 +13,7 @@ function activateAndEdit(profile: ProfileType) {
       <h1 class="font-bold text-xl">
         Create Profiles
       </h1>
-      <p>Create as many profiles as you need. Track differents rewards and tasks for each independently</p>
+      <p>Create as many profiles as you need. Track score and rewards for each independently</p>
     </Banner>
     <q-card flat>
       <q-card-section p="0px">
@@ -45,10 +28,10 @@ function activateAndEdit(profile: ProfileType) {
         />
       </q-card-section>
       <q-card-section>
-        <template v-if="!!store.profiles">
+        <template v-if="!!activeProfiles">
           <q-list>
             <q-item
-              v-for="(profile,key) in store.profiles" :key="key"
+              v-for="profile in activeProfiles" :key="profile.id"
             >
               <q-item-section avatar>
                 <q-avatar v-if="profile.image" w="50px" h="50px">
@@ -64,17 +47,17 @@ function activateAndEdit(profile: ProfileType) {
                   {{ profile.nickname }}
                 </q-item-label>
               </q-item-section>
-              <q-item-section v-if="store.active.id === profile.id" side class="text-primary">
+              <q-item-section v-if="profile.active" side class="text-primary">
                 <q-btn unelevated disabled>
                   <div class="flex items-center">
-                    <span p="r-2">Active</span> <carbon-star />
+                    <span class="pr-2">Active</span> <carbon-star />
                   </div>
                 </q-btn>
               </q-item-section>
               <q-item-section v-else side class="text-accent">
-                <q-btn unelevated @click="store.setActiveProfile(profile)">
+                <q-btn unelevated @click="setActiveProfile(profile)">
                   <div class="flex items-center">
-                    <span p="r-2">switch</span> <carbon-touch-1 />
+                    <span class="pr-2">switch</span> <carbon-touch-1 />
                   </div>
                 </q-btn>
               </q-item-section>
@@ -83,7 +66,7 @@ function activateAndEdit(profile: ProfileType) {
                   <carbon-overflow-menu-vertical />
                   <q-menu border="1 white" :offset="[0,5]">
                     <q-list style="min-width: 100px">
-                      <q-item v-close-popup clickable class="bg-red-6 text-dark" @click="store.archiveProfile(profile)">
+                      <q-item v-close-popup clickable class="bg-red-6 text-dark" @click="archiveProfile(profile)">
                         <q-item-section class="flex items-center">
                           <carbon-trash-can class="text-xl" />
                         </q-item-section>

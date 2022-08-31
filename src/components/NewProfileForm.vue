@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type { z } from 'zod'
 import NewFormControls from '~/components/NewForm/Controls.vue'
 import imageCache from '~/composites/imageCache'
 import { Profile } from '~/schemas'
-
-type ProfileType = z.infer<typeof Profile>
+import type { IProfile } from '~/schemas'
 
 const emits = defineEmits(['submit'])
 
@@ -14,7 +12,7 @@ const profile = reactive({
   color: '',
   hobby: '',
   dateofbirth: '',
-} as ProfileType)
+} as IProfile)
 const profileValid = ref(false)
 
 const profileImage = ref()

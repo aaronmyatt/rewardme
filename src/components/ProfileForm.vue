@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { z } from 'zod'
 import imageCache from '~/composites/imageCache'
 import { Profile } from '~/schemas'
-type ProfileType = z.infer<typeof Profile>
+import type { IProfile } from '~/schemas'
 
 const props = defineProps({
   modelValue: {
@@ -12,7 +11,7 @@ const props = defineProps({
       color: '',
       hobby: '',
       dateofbirth: '',
-    } as ProfileType,
+    } as IProfile,
   },
 })
 const emits = defineEmits(['submit'])
@@ -106,7 +105,7 @@ const colortrigger = ref(undefined)
 
           <div class="flex justify-end pt-4 space-x-2">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-            <q-btn label="Submit" color="primary" />
+            <q-btn type="submit" label="Submit" color="primary" />
           </div>
         </q-form>
 
