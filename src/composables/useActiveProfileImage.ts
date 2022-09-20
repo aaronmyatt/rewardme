@@ -1,18 +1,24 @@
-import { ref, watchEffect } from 'vue'
+import PubSub from 'pubsub-js'
+import { ref } from 'vue'
 import imageCache from '~/composites/imageCache'
-import { useProfiles } from '~/stores/profiles'
+import useProfiles from '~/composables/useProfiles'
+import { Topics } from '~/schemas'
 
 export default function() {
-  const store = useProfiles()
+  const { getActiveProfile } = useProfiles()
 
   const profileImage = ref <String|undefined>(undefined)
 
-  watchEffect(async() => {
-    if (store.active && store.active.image)
-      profileImage.value = await imageCache.getImage(store.active.image)
+  const getProfileImage = async() => {
+    const activeProfile = getActiveProfile()
+    if (activeProfile && activeProfile.image)
+      profileImage.value = await imageCache.getImage(activeProfile.image)
     else
       profileImage.value = undefined
-  })
+  }
 
-  return profileImage
+  onMounted(getProfileImage)
+  PubSub.subscribe(Topics.PROFILE_CHANGED, getProfileImage)
+
+  return { profileImage }
 }

@@ -52,10 +52,14 @@ export const ProfileSummaries = z.array(ProfileSummary)
 
 export const Reinforcement = z.object({
   count: z.number().default(0),
+  id: z.string(),
 })
 
 export enum Topics {
+  REINFORNCE_ALL='rm.reinforce',
   REWARD_BEHAVIOUR='rm.reinforce.increment',
+  DISCOUNT_BEHAVIOUR='rm.reinforce.discount',
+  PROFILE_CHANGED='rm.profile.changed',
 }
 
 export enum StoreKeys {
@@ -67,4 +71,4 @@ export enum StoreKeys {
 export type IReinforcement = z.infer<typeof Reinforcement>
 export type IProfile = z.infer<typeof Profile>
 export type IReward = z.infer<typeof Reward>
-export type AnyValidSchemaObject = IReinforcement | IProfile | IProfile[] | IReward | IReward[]
+export type AnyValidSchemaObject = IReinforcement | IReinforcement[] | IProfile | IProfile[] | IReward | IReward[]

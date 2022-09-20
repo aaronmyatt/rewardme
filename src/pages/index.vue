@@ -1,12 +1,24 @@
 <!--suppress TypeScriptCheckImport -->
 <script setup lang="ts">
 import PubSub from 'pubsub-js'
+import useActiveProfileImage from '~/composables/useActiveProfileImage'
+import useProfiles from '~/composables/useProfiles'
 import useReinforcement from '~/composables/useReinforcement'
 import { Topics } from '~/schemas'
+import type { IProfile } from '~/schemas'
 import DefaultReward from '~icons/custom/Reward'
 import Add from '~icons/carbon/add'
+import Subtract from '~icons/carbon/subtract'
+import Kids from '~icons/custom/Kids'
 
 const { count } = useReinforcement()
+const profile = reactive({} as IProfile)
+const { getActiveProfile } = useProfiles()
+onMounted(() => {
+  Object.assign(profile, getActiveProfile())
+})
+const { profileImage } = useActiveProfileImage()
+
 </script>
 
 <template>
@@ -18,27 +30,76 @@ const { count } = useReinforcement()
       <p>Improving behaviour through effective rewards</p>
     </Banner>
 
-    <div class="dashboard-container pt-4">
-      <div class="Reinforce">
-        <div class="w-full md:w-2/3 mx-auto flex justify-center">
-          <q-btn
-            class="aspect-square text-8xl w-10/12"
-            round @click="PubSub.publish(Topics.REWARD_BEHAVIOUR)"
-          >
-            <Add v-if="count === 0" />
-            <div v-else>
-              {{ count }}
-            </div>
-          </q-btn>
+    <q-card v-if="profile" flat class="bg-secondary rounded-xl mt-4">
+      <q-card-section class="row">
+        <div class="col-3">
+          <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
+          <DefaultAvatar v-else class="w-full h-auto rounded-full bg-white" />
         </div>
-      </div>
-      <div class="Milestones flex">
-        <q-btn class="mx-auto w-1/2" padding="none" no-caps push to="/rewards">
-          <DefaultReward class="w-full h-auto" />
-          <div>
-            <span class="font-bold">Rewards</span>
+        <div class="col-9 pl-4 column justify-center">
+          <p class="text-xl font-bold text-primary">
+            {{ profile && profile.name }}
+          </p>
+          <p class="text-lg font-bold text-red-800 opacity-50">
+            {{ count }}
+          </p>
+        </div>
+      </q-card-section>
+      <q-separator />
+      <q-card-section class="row p-0">
+        <q-btn
+          flat
+          class="col-6 aspect-video"
+          @click="PubSub.publish(Topics.DISCOUNT_BEHAVIOUR, {id: profile.id})"
+        >
+          <Subtract class="text-4xl bg-primary rounded-full text-white" />
+        </q-btn>
+        <q-btn
+          flat
+          class="col-6 aspect-video"
+          @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id})"
+        >
+          <Add class="text-4xl bg-primary rounded-full text-white" />
+        </q-btn>
+      </q-card-section>
+      <q-card-section class="row p-0">
+        <q-btn to="/rewards" class="bg-primary text-secondary font-bold col-12 rounded-b-xl py-4" no-caps flat label="Redeem Points" />
+      </q-card-section>
+    </q-card>
+
+    <div class="dashboardcontainer pt-4">
+      <div class="profiles flex bg-secondary">
+        <q-btn flat class="flex-1" no-caps push to="/profiles">
+          <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
+          <DefaultAvatar v-else class="w-full h-auto rounded-full bg-white" />
+          <div font="bold">
+            Create Profile
           </div>
         </q-btn>
+      </div>
+      <div class="rewards flex bg-secondary">
+        <q-btn flat class="flex-1" padding="none" no-caps push to="/rewards">
+          <DefaultReward class="w-full h-auto" />
+          <div>
+            <span font="bold">Rewards</span>
+          </div>
+        </q-btn>
+      </div>
+      <div class="TBC">
+        <div class="w-full md:w-2/3 mx-auto bg-secondary">
+          <q-card flat square class="bg-secondary">
+            <q-card-section>
+              <q-toolbar>
+                <q-toolbar-title class="text-uppercase font-bold text-primary text-center">
+                  TBC Section
+                </q-toolbar-title>
+              </q-toolbar>
+            </q-card-section>
+            <q-card-section>
+              <Kids class="w-full h-auto" />
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
   </q-page>
@@ -49,20 +110,22 @@ meta:
   layout: default
 </route>
 
- <style>
-.dashboard-container {  display: grid;
+<style>
+.dashboardcontainer {  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: max-content 1fr;
   gap: 10px 10px;
   grid-auto-flow: row dense;
   grid-template-areas:
-    "Reinforce Reinforce"
-    "Milestones Milestones";
+    "profiles rewards"
+    "TBC TBC";
 }
 
-.Reinforce { grid-area: Reinforce; }
+.TBC {
+  grid-area: TBC;
+}
+.profiles { grid-area: profiles; }
 
-.Profiles { grid-area: Profiles; }
+.rewards { grid-area: rewards; }
 
-.Milestones { grid-area: Milestones; }
- </style>
+</style>

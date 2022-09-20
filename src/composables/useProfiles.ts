@@ -1,6 +1,6 @@
 import imageCache from '~/composites/imageCache'
 import { store } from '~/composites/store'
-import { StoreKeys } from '~/schemas'
+import { StoreKeys, Topics } from '~/schemas'
 import type { IProfile } from '~/schemas'
 const profiles = reactive([] as IProfile[])
 const profileImages = ref({} as Record<string, string>)
@@ -26,6 +26,7 @@ export default function() {
       return profile
     })
     store.setItem(StoreKeys.PROFILES, profiles)
+    PubSub.publish(Topics.PROFILE_CHANGED, profiles)
   }
 
   function activateAndEdit(profile: IProfile) {

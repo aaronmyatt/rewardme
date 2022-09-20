@@ -11,7 +11,7 @@ import PubSub from 'pubsub-js'
 import './composites/subscriptions'
 import App from './App.vue'
 import { store } from '~/composites/store'
-import { Reinforcement, StoreKeys } from '~/schemas'
+import { StoreKeys } from '~/schemas'
 
 // windicss layers
 import 'virtual:windi-base.css'
@@ -33,7 +33,7 @@ if (!import.meta.env.PROD) {
 }
 
 if (!store.getItem(StoreKeys.REINFORCEMENT))
-  store.setItem(StoreKeys.REINFORCEMENT, Reinforcement.parse({ count: 0 }))
+  store.setItem(StoreKeys.REINFORCEMENT, [])
 if (!store.getItem(StoreKeys.REWARDS))
   store.setItem(StoreKeys.REWARDS, [])
 if (!store.getItem(StoreKeys.PROFILES))

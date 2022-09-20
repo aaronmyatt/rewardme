@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import useActiveProfileImage from '~/composables/useActiveProfileImage'
 
-const profileImage = useActiveProfileImage()
+const { profileImage } = useActiveProfileImage()
 </script>
 <template>
-  <div>
-    <q-avatar>
+  <div class="w-full h-full">
+    <q-avatar class="w-full">
       <q-img
         v-if="profileImage !== undefined"
         :src="profileImage"
