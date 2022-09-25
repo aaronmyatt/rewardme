@@ -10,7 +10,7 @@ const props = defineProps({
   },
 })
 const router = useRouter()
-const { rewards } = useRewards()
+const { rewards, deleteReward: delReward } = useRewards()
 const reward = ref<IReward>()
 const rewardImage = ref()
 const confirmDelete = ref(false)
@@ -26,6 +26,11 @@ onMounted(() => {
 
   else { router.push('/rewards') }
 })
+
+function deleteReward() {
+  reward.value && delReward(reward.value)
+  router.push('/rewards')
+}
 
 </script>
 
