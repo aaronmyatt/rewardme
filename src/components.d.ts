@@ -6,7 +6,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActiveUserAvatar: typeof import('./components/ActiveUserAvatar.vue')['default']
     Banner: typeof import('./components/Banner.vue')['default']
+    CarbonCalendar: typeof import('~icons/carbon/calendar')['default']
     CarbonChevronRight: typeof import('~icons/carbon/chevron-right')['default']
+    CarbonColorPalette: typeof import('~icons/carbon/color-palette')['default']
+    CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
     CarbonEdit: typeof import('~icons/carbon/edit')['default']
     CarbonGift: typeof import('~icons/carbon/gift')['default']
     CarbonHome: typeof import('~icons/carbon/home')['default']
