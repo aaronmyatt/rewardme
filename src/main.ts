@@ -7,7 +7,7 @@ import { Notify, Quasar } from 'quasar'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
-import PubSub from 'pubsub-js'
+// import PubSub from 'pubsub-js'
 import './composites/subscriptions'
 import App from './App.vue'
 import { store } from '~/composites/store'
@@ -23,14 +23,14 @@ import 'virtual:windi-utilities.css'
 // windicss devtools support (dev only)
 import 'virtual:windi-devtools'
 
-if (import.meta.env.DEV) {
-  PubSub.subscribe('*', (topic: string, data: Record<string, any>) => {
-    // eslint-disable-next-line no-console
-    console.log({
-      topic, data,
-    })
-  })
-}
+// if (import.meta.env.DEV) {
+//   PubSub.subscribe('*', (topic: string, data: Record<string, any>) => {
+//     // eslint-disable-next-line no-console
+//     console.log({
+//       topic, data,
+//     })
+//   })
+// }
 
 if (!store.getItem(StoreKeys.REINFORCEMENT))
   store.setItem(StoreKeys.REINFORCEMENT, [])
