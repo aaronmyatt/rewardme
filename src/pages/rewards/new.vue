@@ -1,13 +1,22 @@
 <script setup lang="ts">
+import { useQuasar } from 'quasar'
 import { store } from '~/composites/store'
 import { StoreKeys } from '~/schemas'
 import type { IReward } from '~/schemas'
+
 const router = useRouter()
+const $q = useQuasar()
 
 function onSubmit(reward: IReward) {
   const rewards = store.getItem(StoreKeys.REWARDS) || []
   rewards.push(reward)
   store.setItem(StoreKeys.REWARDS, rewards)
+
+  $q.notify({
+    type: 'positive',
+    caption: 'Reward Added',
+  })
+
   router.push('/rewards')
 }
 

@@ -21,6 +21,6 @@ const progress = computed(() => {
 })
 
 const label = computed(() => {
-  return 'Target Milestone'
+  return `${Math.round(count.value / props.reward.milestone * 100)}%`
 })
 </script>

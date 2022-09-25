@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useQuasar } from 'quasar'
 import useRewards from '~/composables/useRewards'
 import { store } from '~/composites/store'
 import type { IReward } from '~/schemas'
@@ -12,6 +13,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const $q = useQuasar()
 const { rewards } = useRewards()
 const reward = ref<IReward>()
 
@@ -28,6 +30,12 @@ function onSubmit(reward: IReward) {
   const updatedRewards = rewards.filter((r: IReward) => r.id !== reward.id)
   updatedRewards.push(reward)
   store.setItem(StoreKeys.REWARDS, updatedRewards)
+
+  $q.notify({
+    type: 'positive',
+    caption: 'Reward Updated',
+  })
+
   router.push({
     name: 'rewards-rewardid',
     params: {
