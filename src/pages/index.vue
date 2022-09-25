@@ -27,10 +27,10 @@ const { profileImage } = useActiveProfileImage()
       <h1 class="font-bold text-2xl">
         Welcome to Reward Me!
       </h1>
-      <p>Improving behaviour through effective rewards</p>
+      <p>Good deeds, good rewards</p>
     </Banner>
 
-    <q-card v-if="profile" flat class="bg-secondary rounded-xl mt-4">
+    <q-card v-if="profile.id" flat class="bg-secondary rounded-xl mt-4">
       <q-card-section class="row">
         <div class="col-3">
           <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
