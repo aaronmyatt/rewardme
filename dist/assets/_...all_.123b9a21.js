@@ -1,1 +1,0 @@
-import{u as n}from"./vue-i18n.runtime.esm-bundler.38a88ea1.js";import{d as e,c as s,t as c,b as r,o as a}from"./index.1a72c973.js";const o={},f=e({setup(p){const{t}=n();return(u,i)=>(a(),s("div",null,c(r(t)("not-found")),1))}});typeof o=="function"&&o(f);export{f as default};

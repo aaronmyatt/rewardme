@@ -23,7 +23,7 @@ import 'virtual:windi-utilities.css'
 // windicss devtools support (dev only)
 import 'virtual:windi-devtools'
 
-if (!import.meta.env.PROD) {
+if (import.meta.env.DEV) {
   PubSub.subscribe('*', (topic: string, data: Record<string, any>) => {
     // eslint-disable-next-line no-console
     console.log({
