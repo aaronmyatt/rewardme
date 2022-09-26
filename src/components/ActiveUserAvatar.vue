@@ -4,8 +4,8 @@ import useActiveProfileImage from '~/composables/useActiveProfileImage'
 const { profileImage } = useActiveProfileImage()
 </script>
 <template>
-  <div class="w-full h-full">
-    <q-avatar class="w-full">
+  <div>
+    <q-avatar>
       <q-img
         v-if="profileImage !== undefined"
         :src="profileImage"

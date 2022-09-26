@@ -13,7 +13,7 @@ import logo from '~/png/logo.svg'
               </q-btn>
             </q-btn>
           </q-toolbar-title>
-
+          <q-space />
           <ProfileMenu />
         </q-toolbar>
       </q-header>
