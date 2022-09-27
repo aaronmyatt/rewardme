@@ -11,7 +11,7 @@ const { rewards } = useRewards()
       <h1 class="font-bold text-xl">
         Create Rewards
       </h1>
-      <p>Add rewards your child desires, let the app and the tasks you add coach them through to achieving it.</p>
+      <p>Rewards can be claimed by spending points.</p>
     </Banner>
     <q-card flat>
       <q-card-section p="0px">
