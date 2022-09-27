@@ -17,7 +17,7 @@ export default function() {
     }
   })
 
-  PubSub.subscribe(Topics.REINFORNCE_ALL, () => {
+  PubSub.subscribe(Topics.REINFORCE_ALL, () => {
     setTimeout(() => {
       const profile = getActiveProfile()
       const reinforcement: IReinforcement[] = store.getItem(StoreKeys.REINFORCEMENT)

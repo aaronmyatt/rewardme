@@ -35,7 +35,7 @@ export const Reinforcement = z.object({
 })
 
 export enum Topics {
-  REINFORNCE_ALL='rm.reinforce',
+  REINFORCE_ALL='rm.reinforce',
   REWARD_BEHAVIOUR='rm.reinforce.increment',
   DISCOUNT_BEHAVIOUR='rm.reinforce.discount',
   PROFILE_CHANGED='rm.profile.changed',
