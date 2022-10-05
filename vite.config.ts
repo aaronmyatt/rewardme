@@ -9,7 +9,6 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Markdown from 'vite-plugin-md'
-import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
 import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
@@ -85,11 +84,6 @@ export default defineConfig({
       customCollections: {
         custom: FileSystemIconLoader('./src/png'),
       },
-    }),
-
-    // https://github.com/antfu/vite-plugin-windicss
-    WindiCSS({
-      safelist: markdownWrapperClasses,
     }),
 
     // https://github.com/antfu/vite-plugin-md

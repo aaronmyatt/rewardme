@@ -152,7 +152,7 @@ onUnmounted(() => {
                     borderColor: profile.color
                   }"
                 >
-                  <q-color v-model="profile.color" square w="300px" flat no-footer no-header default-view="palette" format-model="hex" />
+                  <q-color v-model="profile.color" square class="w-[300px]" flat no-footer no-header default-view="palette" format-model="hex" />
                 </div>
                 <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
               </q-step>

@@ -14,7 +14,7 @@ const { rewards } = useRewards()
       <p>Add rewards your child desires, let the app and the tasks you add coach them through to achieving it.</p>
     </Banner>
     <q-card flat>
-      <q-card-section p="0px">
+      <q-card-section class="p-0">
         <q-btn
           :disable="!!!rewards"
           flat
