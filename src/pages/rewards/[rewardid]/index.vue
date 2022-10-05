@@ -37,7 +37,7 @@ function deleteReward() {
 <template>
   <q-page>
     <div class="flex flex-col items-center">
-      <q-card v-if="reward" w="full md:2/3 xl:1/2">
+      <q-card v-if="reward" class="w-full md:w-2/3 xl:w-1/2">
         <q-card-section>
           <q-img
             :ratio="16/9"
@@ -66,7 +66,7 @@ function deleteReward() {
           >
             <carbon-edit />
           </q-btn>
-          <RewardProgress m="t-2" :reward="reward" />
+          <RewardProgress class="mt-2" :reward="reward" />
         </q-card-section>
       </q-card>
     </div>

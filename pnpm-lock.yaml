@@ -5,6 +5,8 @@ specifiers:
   '@iconify-json/carbon': ^1.0.13
   '@quasar/extras': ^1.12.3
   '@quasar/vite-plugin': ^1.0.4
+  '@tailwindcss/aspect-ratio': ^0.4.2
+  '@tailwindcss/typography': ^0.5.7
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/nprogress': ^0.2.0
   '@types/pubsub-js': ^1.8.3
@@ -42,7 +44,6 @@ specifiers:
   vite-plugin-pages: ^0.20.0
   vite-plugin-pwa: ^0.11.13
   vite-plugin-vue-layouts: ^0.5.0
-  vite-plugin-windicss: ^1.6.2
   vite-ssg: ^0.20.2
   vite-svg-loader: ^3.1.2
   vitest: ^0.1.13
@@ -71,6 +72,8 @@ devDependencies:
   '@antfu/eslint-config': 0.16.0_z3gsmzc3xu6w45afpmnsgzwvm4
   '@iconify-json/carbon': 1.0.13
   '@quasar/vite-plugin': 1.0.4_j4xnck4bs7oxymrqps6g4nlt2e
+  '@tailwindcss/aspect-ratio': 0.4.2
+  '@tailwindcss/typography': 0.5.7
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/nprogress': 0.2.0
   '@types/pubsub-js': 1.8.3
@@ -100,7 +103,6 @@ devDependencies:
   vite-plugin-pages: 0.20.0_rz5hstjmd4p7l73owsxhohso6e
   vite-plugin-pwa: 0.11.13_vite@2.7.12
   vite-plugin-vue-layouts: 0.5.0_vw5iwv5y4qyhzk43yh23ygltpm
-  vite-plugin-windicss: 1.6.2_vite@2.7.12
   vite-ssg: 0.20.2_bn5ovqrukfbq26qlmiah5ybl7y
   vite-svg-loader: 3.1.2
   vitest: 0.1.13_sass@1.32.0
@@ -1558,6 +1560,23 @@ packages:
       string.prototype.matchall: 4.0.6
     dev: true
 
+  /@tailwindcss/aspect-ratio/0.4.2:
+    resolution: {integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==}
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
+    dev: true
+
+  /@tailwindcss/typography/0.5.7:
+    resolution: {integrity: sha512-JTTSTrgZfp6Ki4svhPA4mkd9nmQ/j9EfE7SbHJ1cLtthKkpW2OxsFXzSmxbhYbEkfNIyAyhle5p4SYyKRbz/jg==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+    dev: true
+
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -2032,30 +2051,6 @@ packages:
       vue: 3.2.26
       vue-demi: 0.12.1_vue@3.2.26
     dev: false
-
-  /@windicss/config/1.6.2:
-    resolution: {integrity: sha512-xULo0Lm1wF7c7HGyjVegalfOw/ZkBjrpWZ4CnCD5Nhdlu+3kcXCwjOSgVgnSXgh3pg7CnMSdZ/vtnIlgPBqvKA==}
-    dependencies:
-      debug: 4.3.3
-      jiti: 1.12.9
-      windicss: 3.4.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@windicss/plugin-utils/1.6.2:
-    resolution: {integrity: sha512-W3TkqWwLeMfnqXc8LxVoaGEBioEJ114x2RYxDfex6iM3MPzL57qo+jZ5Wv4bvQQ5Id+Yt4gHTZbpgTzBRDouEQ==}
-    dependencies:
-      '@antfu/utils': 0.4.0
-      '@windicss/config': 1.6.2
-      debug: 4.3.3
-      fast-glob: 3.2.10
-      magic-string: 0.25.7
-      micromatch: 4.0.4
-      windicss: 3.4.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /abab/2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
@@ -2796,6 +2791,12 @@ packages:
   /css-what/5.1.0:
     resolution: {integrity: sha512-arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /cssesc/3.0.0:
+    resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
+    engines: {node: '>=4'}
+    hasBin: true
     dev: true
 
   /csso/4.2.0:
@@ -4755,11 +4756,6 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /jiti/1.12.9:
-    resolution: {integrity: sha512-TdcJywkQtcwLxogc4rSMAi479G2eDPzfW0fLySks7TPhgZZ4s/tM6stnzayIh3gS/db3zExWJyUx4cNWrwAmoQ==}
-    hasBin: true
-    dev: true
-
   /js-stringify/1.0.2:
     resolution: {integrity: sha1-Fzb939lyTyijaCrcYjCufk6Weds=}
     dev: true
@@ -5030,8 +5026,16 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: true
+
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=}
+    dev: true
+
+  /lodash.isplainobject/4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
 
   /lodash.merge/4.6.2:
@@ -5598,6 +5602,14 @@ packages:
     resolution: {integrity: sha512-LsBJ+mJLenS4bmbA2xLWUTpWEXIThxPQy0uePEsplBdUUFvgrTDccyIcKDepE8EY8e5QSks67IOMI7bDRySgbQ==}
     engines: {node: '>=12.17'}
     hasBin: true
+    dev: true
+
+  /postcss-selector-parser/6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
     dev: true
 
   /postcss/8.4.4:
@@ -6917,7 +6929,7 @@ packages:
     dev: true
 
   /util-deprecate/1.0.2:
-    resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
+    resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
   /utils-merge/1.0.1:
@@ -7034,20 +7046,6 @@ packages:
       vite: 2.7.12_sass@1.32.0
       vue: 3.2.26
       vue-router: 4.0.12_vue@3.2.26
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /vite-plugin-windicss/1.6.2_vite@2.7.12:
-    resolution: {integrity: sha512-JFZmWo2XumDIoOk6wOW7RugVFpq0ACJ7DRT0dPi8KJ0fCNyYF+Wu6xyig7/QOQEAfoMbYxnVeU3CWGU4D5PlyA==}
-    peerDependencies:
-      vite: ^2.0.1
-    dependencies:
-      '@windicss/plugin-utils': 1.6.2
-      debug: 4.3.3
-      kolorist: 1.5.1
-      vite: 2.7.12_sass@1.32.0
-      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7431,12 +7429,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: true
-
-  /windicss/3.4.2:
-    resolution: {integrity: sha512-YieqWaXiwPu0JJoB7z03RXdjZjQQJtMZAeXUXu/j3JXSMhIgV/2rUXu4Q7QrworRlbaASZlFhxjnL/78aAty+Q==}
-    engines: {node: '>= 12'}
-    hasBin: true
     dev: true
 
   /with/7.0.2:

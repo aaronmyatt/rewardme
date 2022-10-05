@@ -16,7 +16,7 @@ const activeProfiles = computed(() => profiles.filter(profile => !profile.archiv
       <p>Create as many profiles as you need. Track score and rewards for each independently</p>
     </Banner>
     <q-card flat>
-      <q-card-section p="0px">
+      <q-card-section class="p-0">
         <q-btn
           no-caps
           flat

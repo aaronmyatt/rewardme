@@ -16,7 +16,7 @@
           {{ reward.name }} <LastUpdated :date="reward.updateddate" />
         </q-item-label>
         <q-item-label caption>
-          <RewardProgress m="t-2" :reward="reward" size="20px" />
+          <RewardProgress m="t-2" class="mt-2" :reward="reward" size="20px" />
         </q-item-label>
       </q-item-section>
       <q-item-section side>

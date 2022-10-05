@@ -6,7 +6,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActiveUserAvatar: typeof import('./components/ActiveUserAvatar.vue')['default']
     Banner: typeof import('./components/Banner.vue')['default']
-    CarbonChevronRight: typeof import('~icons/carbon/chevron-right')['default']
     CarbonGift: typeof import('~icons/carbon/gift')['default']
     CarbonHome: typeof import('~icons/carbon/home')['default']
     Controls: typeof import('./components/NewForm/Controls.vue')['default']
@@ -22,6 +21,7 @@ declare module 'vue' {
     RewardForm: typeof import('./components/RewardForm.vue')['default']
     RewardList: typeof import('./components/RewardList.vue')['default']
     RewardProgress: typeof import('./components/RewardProgress.vue')['default']
+    TaskForm: typeof import('./components/TaskForm.vue')['default']
   }
 }
 
