@@ -1,8 +1,10 @@
 // register vue composition api globally
-import { ViteSSG } from 'vite-ssg'
-import generatedRoutes from 'virtual:generated-pages'
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
 
+import './styles/main.css'
 import { Notify, Quasar } from 'quasar'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
@@ -30,21 +32,23 @@ if (!store.getItem(StoreKeys.PROFILES))
   store.setItem(StoreKeys.PROFILES, [])
 
 const routes = setupLayouts(generatedRoutes)
+const router = createRouter({
+  routes,
+  history: createWebHistory(),
+})
 
-// https://github.com/antfu/vite-ssg
-export const createApp = ViteSSG(
-  App,
-  { routes, base: import.meta.env.BASE_URL },
-  (ctx) => {
-    // install all modules under `modules/`
-    Object.values(import.meta.globEager('./modules/*.ts')).map(i => i.install?.(ctx))
-    ctx.app.use(Quasar, {
-      plugins: {
-        Notify,
-      },
-      extras: [
-        'poppins-font',
-      ],
-    })
+const myApp = createApp(App)
+
+myApp.use(router)
+
+myApp.use(Quasar, {
+  plugins: {
+    Notify,
   },
-)
+  extras: [
+    'poppins-font',
+  ],
+})
+
+// Assumes you have a <div id="app"></div> in your index.html
+myApp.mount('#app')
