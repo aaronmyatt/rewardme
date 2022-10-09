@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
+import { createHead } from '@vueuse/head'
 
 import './styles/main.css'
 import { Notify, Quasar } from 'quasar'
@@ -36,11 +37,11 @@ const router = createRouter({
   routes,
   history: createWebHistory(),
 })
-
+const head = createHead()
 const myApp = createApp(App)
 
 myApp.use(router)
-
+myApp.use(head)
 myApp.use(Quasar, {
   plugins: {
     Notify,
