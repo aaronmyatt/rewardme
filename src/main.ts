@@ -5,10 +5,10 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import { createHead } from '@vueuse/head'
 
-import './styles/main.css'
 import { Notify, Quasar } from 'quasar'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
+import './styles/main.css'
 
 // import PubSub from 'pubsub-js'
 import './composites/subscriptions'
@@ -46,9 +46,11 @@ myApp.use(Quasar, {
   plugins: {
     Notify,
   },
-  extras: [
-    'poppins-font',
-  ],
+  config: {
+    extras: [
+      'poppins-font',
+    ],
+  },
 })
 
 // Assumes you have a <div id="app"></div> in your index.html
