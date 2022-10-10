@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActiveUserAvatar: typeof import('./components/ActiveUserAvatar.vue')['default']
     Banner: typeof import('./components/Banner.vue')['default']
+    CarbonChevronRight: typeof import('~icons/carbon/chevron-right')['default']
     CarbonEdit: typeof import('~icons/carbon/edit')['default']
     CarbonGift: typeof import('~icons/carbon/gift')['default']
     CarbonHome: typeof import('~icons/carbon/home')['default']
@@ -13,6 +14,7 @@ declare module 'vue' {
     CarbonStar: typeof import('~icons/carbon/star')['default']
     CarbonTouch1: typeof import('~icons/carbon/touch1')['default']
     CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
+    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     Controls: typeof import('./components/NewForm/Controls.vue')['default']
     DefaultAvatar: typeof import('./components/DefaultAvatar.vue')['default']
     DevJson: typeof import('./components/DevJson.vue')['default']

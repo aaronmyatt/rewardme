@@ -31,6 +31,7 @@ export const Profile = z.object(
 
 export const Reinforcement = z.object({
   count: z.number().default(0),
+  createddate: z.string().default(new Date().toUTCString()),
   id: z.string(),
 })
 
@@ -39,6 +40,7 @@ export enum Topics {
   REWARD_BEHAVIOUR='rm.reinforce.increment',
   DISCOUNT_BEHAVIOUR='rm.reinforce.discount',
   PROFILE_CHANGED='rm.profile.changed',
+  UPDATE_STORE='rm.store.update',
 }
 
 export enum StoreKeys {
