@@ -1,26 +1,36 @@
 <template>
-  <q-linear-progress :size="size || '25px'" :value="progress" color="accent">
+  <q-linear-progress :size="size || '25px'" :value="progress" :color="barColor" rounded>
     <div class="absolute-full flex flex-center">
-      <q-badge color="white" text-color="accent" :label="label" />
+      <q-badge color="white" :text-color="badgeColor" :label="label" />
     </div>
   </q-linear-progress>
 </template>
 <script setup lang="ts">
 import useReinforcement from '~/composables/useReinforcement'
-import type { IReward } from '~/schemas'
 
-const props = defineProps<{
-  reward: IReward
-  size?: String
-}>()
+const props = defineProps({
+  value: {
+    default: 0,
+  },
+  size: {
+    default: '25px',
+  },
+  label: String,
+  barColor: {
+    default: 'green',
+  },
+  badgeColor: {
+    default: 'accent',
+  },
+})
 
 const { count } = useReinforcement()
 
 const progress = computed(() => {
-  return count.value / props.reward.milestone
+  return count.value / props.value
 })
 
 const label = computed(() => {
-  return `${Math.round(count.value / props.reward.milestone * 100)}%`
+  return props.label || `${count.value} / ${props.value}`
 })
 </script>
