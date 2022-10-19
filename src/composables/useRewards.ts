@@ -1,5 +1,6 @@
 import { useQuasar } from 'quasar'
 import useProfile from './useProfiles'
+import useReinforcement from '~/composables/useReinforcement'
 import { store } from '~/composites/store'
 import { StoreKeys } from '~/schemas'
 import type { IReward } from '~/schemas'
@@ -9,7 +10,9 @@ const totalClaimed = ref(0)
 
 export default function() {
   const $q = useQuasar()
+  const { count } = useReinforcement()
   const { getActiveProfile } = useProfile()
+
   onMounted(() => {
     const activeProfile = getActiveProfile()
     if (activeProfile) {
@@ -77,7 +80,9 @@ export default function() {
   }
 
   return {
+    totalClaimed,
     rewards,
     deleteReward,
+    claimReward,
   }
 }

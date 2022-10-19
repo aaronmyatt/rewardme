@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
+import FloatingDelete from '~/components/FloatingDelete.vue'
 import useRewards from '~/composables/useRewards'
 import { store } from '~/composites/store'
 import type { IReward } from '~/schemas'
@@ -14,11 +15,11 @@ const props = defineProps({
 
 const router = useRouter()
 const $q = useQuasar()
-const { rewards } = useRewards()
+const { rewards, deleteReward: delReward } = useRewards()
 const reward = ref<IReward>()
 
 onMounted(() => {
-  const matchingReward = rewards.value.find(reward => reward.id === props.rewardid)
+  const matchingReward = rewards.find(reward => reward.id === props.rewardid)
   if (matchingReward)
     reward.value = matchingReward
 
@@ -44,6 +45,11 @@ function onSubmit(reward: IReward) {
   })
 }
 
+function deleteReward() {
+  reward.value && delReward(reward.value)
+  router.push('/rewards')
+}
+
 </script>
 
 <template>
@@ -54,5 +60,6 @@ function onSubmit(reward: IReward) {
       </q-toolbar-title>
     </q-toolbar>
     <RewardForm v-if="reward" :model-value="reward" @submit="onSubmit" />
+    <FloatingDelete :on-confirmation-action="deleteReward" />
   </div>
 </template>

@@ -3,6 +3,7 @@
 import PubSub from 'pubsub-js'
 import useActiveProfileImage from '~/composables/useActiveProfileImage'
 import useProfiles from '~/composables/useProfiles'
+import useRewards from '~/composables/useRewards'
 import useReinforcement from '~/composables/useReinforcement'
 import { Topics } from '~/schemas'
 import type { IProfile } from '~/schemas'
@@ -11,6 +12,7 @@ import Add from '~icons/carbon/add'
 import Subtract from '~icons/carbon/subtract'
 import Kids from '~icons/custom/Kids'
 
+const { totalClaimed } = useRewards()
 const { count } = useReinforcement()
 const profile = reactive({} as IProfile)
 const { getActiveProfile } = useProfiles()
@@ -41,7 +43,7 @@ const { profileImage } = useActiveProfileImage()
             {{ profile && profile.name }}
           </p>
           <p class="text-lg font-bold text-red-800 opacity-50">
-            {{ count }}
+            {{ count }} ({{ totalClaimed }})
           </p>
         </div>
       </q-card-section>
@@ -72,7 +74,7 @@ const { profileImage } = useActiveProfileImage()
         <q-btn flat class="flex-1" no-caps push to="/profiles">
           <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
           <DefaultAvatar v-else class="w-full h-auto rounded-full bg-white" />
-          <div font="bold">
+          <div class="font-bold">
             Create Profile
           </div>
         </q-btn>
@@ -81,7 +83,7 @@ const { profileImage } = useActiveProfileImage()
         <q-btn flat class="flex-1" padding="none" no-caps push to="/rewards">
           <DefaultReward class="w-full h-auto" />
           <div>
-            <span font="bold">Rewards</span>
+            <span class="font-bold">Rewards</span>
           </div>
         </q-btn>
       </div>

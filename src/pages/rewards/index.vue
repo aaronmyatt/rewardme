@@ -6,14 +6,14 @@ const { rewards } = useRewards()
 </script>
 
 <template>
-  <q-page class="p-4 xl:w-2/3 md:mx-auto space-y-2 column">
+  <q-page class="xl:w-2/3 md:mx-auto space-y-2 column">
     <Banner>
       <h1 class="font-bold text-xl">
         Create Rewards
       </h1>
       <p>Rewards can be claimed by spending points.</p>
     </Banner>
-    <q-card flat>
+    <q-card flat class="space-y-5">
       <q-card-section class="p-0">
         <q-btn
           :disable="!!!rewards"
@@ -26,11 +26,12 @@ const { rewards } = useRewards()
           label="Add Reward"
         />
       </q-card-section>
-      <template v-if="rewards.length > 0">
-        <q-card-section>
+
+      <q-card-section class="p-0">
+        <template v-if="rewards.length > 0">
           <RewardList :rewards="rewards" class="rounded-xl" />
-        </q-card-section>
-      </template>
+        </template>
+      </q-card-section>
     </q-card>
     <q-space />
     <DefaultReward class="w-1/2 h-auto mx-auto" />
