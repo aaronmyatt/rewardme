@@ -10,6 +10,8 @@ export const Reward = z.object(
     name: z.string(),
     image: z.string().optional(), // as base64
     milestone: z.number().default(0),
+    claimed: z.boolean().default(false),
+    archived: z.boolean().default(false),
   },
 )
 
