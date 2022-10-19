@@ -29,8 +29,13 @@ export default function() {
   })
 
   function deleteReward(reward: IReward) {
-    rewards.value = rewards.value.filter((r: IReward) => r.id !== reward.id)
-    store.setItem(StoreKeys.REWARDS, rewards.value)
+    rewards.map((r) => {
+      if (r.id === reward.id)
+        r.archived = !r.archived
+
+      return r
+    })
+    store.setItem(StoreKeys.REWARDS, rewards)
     $q.notify({
       type: 'negative',
       message: 'Reward Deleted',
