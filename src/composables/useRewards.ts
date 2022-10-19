@@ -41,6 +41,41 @@ export default function() {
       message: 'Reward Deleted',
     })
   }
+
+  function invalidClaim(reward: IReward) {
+    const availablePoints = (count.value - totalClaimed.value)
+    const sufficientPoints = availablePoints >= reward.milestone
+    if (sufficientPoints)
+      return
+
+    $q.notify({
+      type: 'negative',
+      message: 'You need to earn more reward points.',
+    })
+
+    return true
+  }
+
+  function claimReward(reward: IReward) {
+    if (invalidClaim(reward)) {
+      if (!reward.claimed) // insufficient points, but they wanna reset a previous claim
+        return
+    }
+
+    rewards.map((r) => {
+      if (r.id === reward.id)
+        r.claimed = !r.claimed
+
+      return r
+    })
+
+    store.setItem(StoreKeys.REWARDS, rewards)
+    $q.notify({
+      type: reward.claimed ? 'positive' : 'warning',
+      message: reward.claimed ? 'Reward Claimed' : 'Reward Reset',
+    })
+  }
+
   return {
     rewards,
     deleteReward,
