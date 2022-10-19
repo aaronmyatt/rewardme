@@ -1,31 +1,10 @@
 <template>
-  <q-list separator class="bg-secondary text-primary">
-    <q-item
-      v-for="reward in sortedRewards"
-      :key="reward.id"
-      tag="label"
-      :to="{name: 'rewards-rewardid', params: {
-        rewardid: reward.id
-      }}"
-    >
-      <q-item-section v-if="reward.image" avatar>
-        <img :src="reward.image && rewardImages[reward.image]" alt="" w="50px">
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>
-          {{ reward.name }} <LastUpdated :date="reward.updateddate" />
-        </q-item-label>
-        <q-item-label caption>
-          <RewardProgress m="t-2" class="mt-2" :reward="reward" size="20px" />
-        </q-item-label>
-      </q-item-section>
-      <q-item-section side>
-        <carbon-chevron-right text="xl" font="bold" class="text-primary" />
-      </q-item-section>
-    </q-item>
-  </q-list>
+  <div class="text-primary grid grid-cols-2 md:grid-cols-3 gap-3">
+    <RewardCard v-for="reward in sortedRewards" :key="reward.id" :reward="reward" :reward-image="reward.image && rewardImages[reward.image]" class="w-full" />
+  </div>
 </template>
 <script setup lang="ts">
+import RewardCard from '~/components/RewardCard.vue'
 import imageCache from '~/composites/imageCache'
 import type { IReward } from '~/schemas'
 
@@ -49,6 +28,6 @@ function byDateKey(dateKey: keyof Pick<IReward, 'updateddate' | 'createddate'>) 
   }
 }
 
-const sortedRewards = [...props.rewards] // copy before mutating
-  .sort(byDateKey('updateddate'))
+const sortedRewards = Object.assign(props.rewards, [...props.rewards]
+  .sort(byDateKey('updateddate')))
 </script>
