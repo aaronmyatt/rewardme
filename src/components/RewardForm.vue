@@ -20,6 +20,7 @@ onMounted(() => {
     Object.assign(reward, {
       ...reward,
       profile: activeProfile.id,
+      claimed: false,
     })
   }
   else {
@@ -88,6 +89,7 @@ function onReset() {
               </q-avatar>
             </template>
           </q-file>
+          <q-checkbox v-model="reward.claimed" label="Claimed?" />
           <div class="flex justify-end">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
             <q-btn label="Submit" type="submit" color="primary" />
