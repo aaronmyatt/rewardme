@@ -14,24 +14,24 @@ function queueReinforcement() {
   const restrictedNotify = debounce((id) => {
     PubSub.publish(Topics.UPDATE_STORE, { id, count })
     count = 0
-  }, 500)
+  }, 300)
 
-  return (id: string, dec = false) => {
+  return (id: string, change = 1, dec = false) => {
     if (dec)
-      count--
+      count = count - change
     else
-      count++
+      count = count + change
     restrictedNotify(id)
   }
 }
 const queueChange = queueReinforcement()
 
-PubSub.subscribe(Topics.REWARD_BEHAVIOUR, (_, { id }) => {
-  queueChange(id)
+PubSub.subscribe(Topics.REWARD_BEHAVIOUR, (_, { id, change }) => {
+  queueChange(id, change)
 })
 
-PubSub.subscribe(Topics.DISCOUNT_BEHAVIOUR, (_, { id }) => {
-  queueChange(id, true)
+PubSub.subscribe(Topics.DISCOUNT_BEHAVIOUR, (_, { id, change }) => {
+  queueChange(id, change, true)
 })
 
 PubSub.subscribe(Topics.UPDATE_STORE, (_, data) => {
