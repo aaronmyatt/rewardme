@@ -31,6 +31,8 @@ export default function() {
     }
   })
 
+  const availablePoints = computed(() => count.value - totalClaimed.value)
+
   function deleteReward(reward: IReward) {
     rewards.map((r) => {
       if (r.id === reward.id)
@@ -46,8 +48,7 @@ export default function() {
   }
 
   function invalidClaim(reward: IReward) {
-    const availablePoints = (count.value - totalClaimed.value)
-    const sufficientPoints = availablePoints >= reward.milestone
+    const sufficientPoints = availablePoints.value >= reward.milestone
     if (sufficientPoints)
       return
 
@@ -84,5 +85,6 @@ export default function() {
     rewards,
     deleteReward,
     claimReward,
+    availablePoints,
   }
 }
