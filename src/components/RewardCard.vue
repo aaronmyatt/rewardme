@@ -2,7 +2,7 @@
 import type { IReward } from '~/schemas'
 import useRewards from '~/composables/useRewards'
 
-const { claimReward } = useRewards()
+const { claimReward, availablePoints } = useRewards()
 
 interface Props {
   reward: IReward
@@ -14,6 +14,11 @@ const props = withDefaults(defineProps<Props>(), {
   editable: true,
 })
 
+const untilClaimable = computed(() => {
+  const milestone = props.reward.milestone
+  const until = availablePoints.value > milestone ? milestone : availablePoints.value
+  return `${until} / ${milestone}`
+})
 </script>
 
 <template>
@@ -25,11 +30,16 @@ const props = withDefaults(defineProps<Props>(), {
         spinner-color="primary"
         spinner-size="82px"
       >
-        <div class="text-2xl absolute bottom-0 left-0 text-left capitalize reward-name-container space-x-4 flex">
-          <div class="name">
-            {{ reward.name }}
+        <div class="text-2xl absolute bottom-0 left-0 text-left capitalize reward-name-container">
+          <div class="space-x-4 flex">
+            <div class="name">
+              {{ reward.name }}
+            </div>
+            <carbon-star v-if="reward.claimed" class="claimed text-yellow-400 fill-yellow-400" />
           </div>
-          <carbon-star v-if="reward.claimed" class="claimed text-yellow-400 fill-yellow-400" />
+          <div class="text-lg">
+            {{ untilClaimable }}
+          </div>
         </div>
       </q-img>
     </q-card-section>
