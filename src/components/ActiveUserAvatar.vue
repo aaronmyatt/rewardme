@@ -5,9 +5,10 @@ const { profileImage } = useActiveProfileImage()
 </script>
 <template>
   <div>
-    <q-avatar>
+    <q-avatar class="w-full h-auto">
       <q-img
         v-if="profileImage !== undefined"
+        ratio="1"
         :src="profileImage"
       />
       <DefaultAvatar v-else />

@@ -1,8 +1,8 @@
 <!--suppress TypeScriptCheckImport -->
 <script setup lang="ts">
 import PubSub from 'pubsub-js'
+import ActiveUserAvatar from '~/components/ActiveUserAvatar.vue'
 import DevJson from '~/components/DevJson.vue'
-import useActiveProfileImage from '~/composables/useActiveProfileImage'
 import useProfiles from '~/composables/useProfiles'
 import useRewards from '~/composables/useRewards'
 import useReinforcement from '~/composables/useReinforcement'
@@ -20,83 +20,109 @@ const { getActiveProfile } = useProfiles()
 onMounted(() => {
   Object.assign(profile, getActiveProfile())
 })
-const { profileImage } = useActiveProfileImage()
 const openEditPointsDialog = ref(false)
 const editPointsAmount = ref(0)
-
 </script>
 
 <template>
-  <q-page class="p-4 xl:w-2/3 md:mx-auto">
+  <q-page>
     <Banner>
       <h1 class="font-bold text-2xl">
         Welcome to Reward Me!
       </h1>
-      <p>Good deeds, good rewards</p>
+      <p class="text-lg">
+        Good deeds, good rewards
+      </p>
     </Banner>
 
-    <q-card v-if="profile.id" flat class="bg-secondary rounded-xl mt-4">
-      <q-card-section class="row">
-        <div class="col-3">
-          <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
-          <DefaultAvatar v-else class="w-full h-auto rounded-full bg-white" />
-        </div>
-        <div class="col-9 column flex-nowrap">
-          <p class="row text-4xl font-extrabold text-[#4F5D90] leading-loose capitalize">
-            {{ profile && profile.name }}
-          </p>
-          <div class="row items-center justify-center h-full text-center">
-            <div class="col-6">
-              <p class="text-xl font-bold text-[#4F5D90]">
-                {{ count }}
-              </p>
-              <p class="text-xl text-[#4F5D90]">
-                Total Points
-              </p>
-            </div>
-            <div class="col-6">
-              <p class="text-xl font-bold text-[#4F5D90]">
-                {{ totalClaimed }}
-              </p>
-              <p class="text-xl text-[#4F5D90]">
-                Claimed
-              </p>
+    <main class="xl:w-2/3 md:mx-auto space-y-4 p-4">
+      <q-card v-if="profile.id" flat class="bg-secondary rounded-xl mt-4">
+        <q-card-section class="row">
+          <div class="col-3">
+            <ActiveUserAvatar />
+          </div>
+          <div class="col-9 column flex-nowrap">
+            <p class="row text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#4F5D90] leading-loose capitalize pl-6">
+              {{ profile && profile.name }}
+            </p>
+            <div class="row items-center justify-center h-full text-center font-bold text-lg md:text-xl">
+              <div class="col-6">
+                <p class="text-[#4F5D90]">
+                  {{ count }}
+                </p>
+                <p class="text-[#4F5D90]">
+                  Total Points
+                </p>
+              </div>
+              <div class="col-6">
+                <p class="text-[#4F5D90]">
+                  {{ totalClaimed }}
+                </p>
+                <p class="text-[#4F5D90]">
+                  Total Claimed
+                </p>
+              </div>
             </div>
           </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section class="row p-0">
+          <q-btn
+            flat
+            class="col-6 aspect-video py-6"
+            @click="PubSub.publish(Topics.DISCOUNT_BEHAVIOUR, {id: profile.id})"
+          >
+            <Subtract class="text-4xl bg-primary rounded-full text-white" />
+          </q-btn>
+          <q-btn
+            flat
+            class="col-6 aspect-video py-6"
+            @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id})"
+          >
+            <Add class="text-4xl bg-primary rounded-full text-white" />
+          </q-btn>
+        </q-card-section>
+      </q-card>
+
+      <q-btn-group spread outline class="row space-x-px font-bold">
+        <q-btn class="bg-primary text-secondary text-base md:text-xl" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
+        <q-btn class="bg-primary text-secondary text-xl" no-caps label="10" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 10})" />
+        <q-btn class="bg-primary text-secondary text-xl" no-caps label="20" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 20})" />
+        <q-btn class="bg-primary text-secondary text-xl" no-caps label="50" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 50})" />
+        <q-btn class="bg-primary text-secondary text-xl" no-caps label="100" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 100})" />
+      </q-btn-group>
+
+      <div class="row space-x-4">
+        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" no-caps push to="/profiles">
+          <ActiveUserAvatar class="w-3/4 h-auto" />
+          <div class="font-bold">
+            Create Profile
+          </div>
+        </q-btn>
+        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" padding="none" no-caps push to="/rewards">
+          <DefaultReward class="w-3/4 h-auto" />
+          <div>
+            <span class="font-bold">Rewards</span>
+          </div>
+        </q-btn>
+      </div>
+      <div class="TBC">
+        <div class="w-full md:w-2/3 mx-auto bg-secondary rounded-xl">
+          <q-card flat class="bg-secondary rounded-xl">
+            <q-card-section>
+              <q-toolbar>
+                <q-toolbar-title class="text-uppercase font-bold text-primary text-center">
+                  TBC Section
+                </q-toolbar-title>
+              </q-toolbar>
+            </q-card-section>
+            <q-card-section>
+              <Kids class="w-full h-auto" />
+            </q-card-section>
+          </q-card>
         </div>
-      </q-card-section>
-      <q-separator />
-      <q-card-section class="row p-0">
-        <q-btn
-          flat
-          class="col-6 aspect-video py-6"
-          @click="PubSub.publish(Topics.DISCOUNT_BEHAVIOUR, {id: profile.id})"
-        >
-          <Subtract class="text-4xl bg-primary rounded-full text-white" />
-        </q-btn>
-        <q-btn
-          flat
-          class="col-6 aspect-video py-6"
-          @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id})"
-        >
-          <Add class="text-4xl bg-primary rounded-full text-white" />
-        </q-btn>
-      </q-card-section>
-      <q-card-section class="p-0">
-        <q-btn-group spread outline class="row space-x-px">
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="5" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 5})" />
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="10" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 10})" />
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="20" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 20})" />
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="50" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 50})" />
-          <q-btn class="bg-primary text-secondary font-bold py-4" no-caps label="100" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 100})" />
-        </q-btn-group>
-      </q-card-section>
-      <q-separator />
-      <q-card-section class="row p-0">
-        <q-btn to="/rewards" class="bg-primary text-secondary font-bold col-12 rounded-b-xl py-4" no-caps flat label="Claim Rewards" />
-      </q-card-section>
-    </q-card>
+      </div>
+    </main>
 
     <q-dialog v-model="openEditPointsDialog">
       <DevJson :jsonable="editPointsAmount" />
@@ -122,42 +148,6 @@ const editPointsAmount = ref(0)
         </q-card-actions>
       </q-card>
     </q-dialog>
-
-    <div class="dashboardcontainer pt-4">
-      <div class="profiles flex bg-secondary">
-        <q-btn flat class="flex-1" no-caps push to="/profiles">
-          <q-img v-if="profileImage" :src="profileImage" class="rounded-full" />
-          <DefaultAvatar v-else class="w-full h-auto rounded-full bg-white" />
-          <div class="font-bold">
-            Create Profile
-          </div>
-        </q-btn>
-      </div>
-      <div class="rewards flex bg-secondary">
-        <q-btn flat class="flex-1" padding="none" no-caps push to="/rewards">
-          <DefaultReward class="w-full h-auto" />
-          <div>
-            <span class="font-bold">Rewards</span>
-          </div>
-        </q-btn>
-      </div>
-      <div class="TBC">
-        <div class="w-full md:w-2/3 mx-auto bg-secondary">
-          <q-card flat square class="bg-secondary">
-            <q-card-section>
-              <q-toolbar>
-                <q-toolbar-title class="text-uppercase font-bold text-primary text-center">
-                  TBC Section
-                </q-toolbar-title>
-              </q-toolbar>
-            </q-card-section>
-            <q-card-section>
-              <Kids class="w-full h-auto" />
-            </q-card-section>
-          </q-card>
-        </div>
-      </div>
-    </div>
   </q-page>
 </template>
 
@@ -165,23 +155,3 @@ const editPointsAmount = ref(0)
 meta:
   layout: default
 </route>
-
-<style>
-.dashboardcontainer {  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content 1fr;
-  gap: 10px 10px;
-  grid-auto-flow: row dense;
-  grid-template-areas:
-    "profiles rewards"
-    "TBC TBC";
-}
-
-.TBC {
-  grid-area: TBC;
-}
-.profiles { grid-area: profiles; }
-
-.rewards { grid-area: rewards; }
-
-</style>

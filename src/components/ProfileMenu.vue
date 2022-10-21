@@ -1,7 +1,7 @@
 <template>
   <q-btn dense round push>
     <ActiveUserAvatar
-      class="cursor-pointer rounded-full bg-white"
+      class="cursor-pointer rounded-full bg-white w-full h-auto"
     >
       <q-menu touch-position>
         <q-list style="min-width: 100px">
