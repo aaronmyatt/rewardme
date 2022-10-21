@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logo from '~/png/logo.svg'
+import Logo from '~/png/logo.svg'
 </script>
 <template>
   <div class="max-w-screen-2xl mx-auto h-full">
@@ -9,7 +9,7 @@ import logo from '~/png/logo.svg'
           <q-toolbar-title class="shrink-0 overflow-visible">
             <q-btn to="/" flat padding="0" size="lg" no-caps>
               <q-btn to="/" flat padding="0" size="lg" no-caps>
-                <logo />
+                <Logo />
               </q-btn>
             </q-btn>
           </q-toolbar-title>

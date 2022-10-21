@@ -18,8 +18,6 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <div>
-    <MaleAvatar v-if="profileImage === 'male'" class="w-full h-auto" />
-    <FemaleAvatar v-else class="w-full h-auto" />
-  </div>
+  <MaleAvatar v-if="profileImage === 'male'" class="w-full h-auto" />
+  <FemaleAvatar v-else class="h-auto w-full" />
 </template>

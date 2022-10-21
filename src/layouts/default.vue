@@ -5,7 +5,7 @@ import logo from '~/png/logo.svg'
   <div class="max-w-screen-2xl mx-auto h-full">
     <q-layout view="lHr LpR lFr" container style="height:100%">
       <q-header>
-        <q-toolbar class="bg-[#E6E9F6]">
+        <q-toolbar class="bg-[#E6E9F6] py-2">
           <q-btn to="/" flat padding="0" size="lg" no-caps>
             <logo />
           </q-btn>

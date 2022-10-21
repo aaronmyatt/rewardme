@@ -12,6 +12,7 @@ import DefaultReward from '~icons/custom/Reward'
 import Add from '~icons/carbon/add'
 import Subtract from '~icons/carbon/subtract'
 import Kids from '~icons/custom/Kids'
+import Logo from '~/png/logo.svg'
 
 const { totalClaimed } = useRewards()
 const { count } = useReinforcement()
@@ -26,14 +27,29 @@ const editPointsAmount = ref(0)
 
 <template>
   <q-page>
-    <Banner>
-      <h1 class="font-bold text-2xl">
-        Welcome to Reward Me!
-      </h1>
-      <p class="text-lg">
-        Good deeds, good rewards
-      </p>
-    </Banner>
+    <section v-if="!profile.id" class="px-10 py-40 bg-gradient-to-b from-[#07075c] to-[#7989c4] row justify-center items-center">
+      <div class="col-xs-12 col-md-6 column items-center md:items-start justify-center md:justify-start">
+        <div class="prose font-sans text-center md:text-left">
+          <h1 class="text-white font-extrabold">
+            Welcome to RewardMe!
+          </h1>
+          <h2 class="text-white">
+            Good deeds, good rewards
+          </h2>
+          <h3 class="text-white">
+            RewardMe is the culmination of a parents journey to effectively guide their children to greatness.
+          </h3>
+        </div>
+        <q-btn flat class="bg-accent rounded-full mt-10 text-white md:self-start" padding="18px" no-caps push to="/profiles" size="xl" align="left">
+          <div class="font-bold text-base md:text-2xl">
+            Create a free profile >
+          </div>
+        </q-btn>
+      </div>
+      <div class="col-xs-12 col-md-6 column justify-center items-center">
+        <Kids class="w-3/4 h-auto" />
+      </div>
+    </section>
 
     <main class="xl:w-2/3 md:mx-auto space-y-4 p-4">
       <q-card v-if="profile.id" flat class="bg-secondary rounded-xl mt-4">
@@ -84,7 +100,7 @@ const editPointsAmount = ref(0)
         </q-card-section>
       </q-card>
 
-      <q-btn-group spread outline class="row space-x-px font-bold">
+      <q-btn-group v-if="profile.id" spread outline class="row space-x-px font-bold">
         <q-btn class="bg-primary text-secondary text-base md:text-xl" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="10" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 10})" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="20" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 20})" />
@@ -92,11 +108,11 @@ const editPointsAmount = ref(0)
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="100" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 100})" />
       </q-btn-group>
 
-      <div class="row space-x-4">
-        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" no-caps push to="/profiles">
-          <ActiveUserAvatar class="w-3/4 h-auto" />
+      <div v-if="profile.id" class="row space-x-4">
+        <q-btn flat stack class="col-6 flex-1 bg-secondary" no-caps push to="/profiles">
+          <ActiveUserAvatar class="bg-white rounded-full" :class="{'w-1/4': !profile.id, 'w-3/4': profile.id}" />
           <div class="font-bold">
-            Create Profile
+            Switch Profile
           </div>
         </q-btn>
         <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" padding="none" no-caps push to="/rewards">
@@ -112,7 +128,7 @@ const editPointsAmount = ref(0)
             <q-card-section>
               <q-toolbar>
                 <q-toolbar-title class="text-uppercase font-bold text-primary text-center">
-                  TBC Section
+                  Latest Posts
                 </q-toolbar-title>
               </q-toolbar>
             </q-card-section>

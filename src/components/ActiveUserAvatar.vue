@@ -5,14 +5,15 @@ const { profileImage } = useActiveProfileImage()
 </script>
 <template>
   <div>
-    <q-avatar class="w-full h-auto">
-      <q-img
-        v-if="profileImage !== undefined"
-        ratio="1"
-        :src="profileImage"
-      />
-      <DefaultAvatar v-else />
-    </q-avatar>
+    <q-img
+      v-if="profileImage !== undefined"
+      class="rounded-full"
+      ratio="1"
+      :src="profileImage"
+    />
+    <q-img v-else ratio="1">
+      <DefaultAvatar class="rounded-full" />
+    </q-img>
 
     <!-- So we can nest, for example, q-menu inside neatly -->
     <slot />
