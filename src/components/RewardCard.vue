@@ -2,7 +2,7 @@
 import type { IReward } from '~/schemas'
 import useRewards from '~/composables/useRewards'
 
-const { claimReward, availablePoints } = useRewards()
+const { claimReward, availablePoints, claimable } = useRewards()
 
 interface Props {
   reward: IReward
@@ -37,7 +37,7 @@ const untilClaimable = computed(() => {
             </div>
             <carbon-star v-if="reward.claimed" class="claimed text-yellow-400 fill-yellow-400" />
           </div>
-          <div class="text-lg">
+          <div class="text-]">
             {{ untilClaimable }}
           </div>
         </div>
@@ -58,7 +58,7 @@ const untilClaimable = computed(() => {
       >
         <carbon-edit />
       </q-btn>
-      <q-btn class="w-full" padding="0px" flat @click="claimReward(reward)">
+      <q-btn v-if="claimable(reward)" class="w-full" padding="0px" flat @click="claimReward(reward)">
         <RewardProgress
           :value="reward.milestone"
           :label="reward.claimed ? 'Reset' : 'Redeem'" size="30px"
@@ -66,6 +66,14 @@ const untilClaimable = computed(() => {
           :badge-color="reward.claimed ? 'green' : 'accent'"
         />
       </q-btn>
+      <RewardProgress
+        v-else
+        :value="reward.milestone"
+        :label="reward.claimed ? 'Reset' : ''"
+        size="30px"
+        :bar-color="reward.claimed ? 'accent' : 'green'"
+        :badge-color="reward.claimed ? 'green' : 'accent'"
+      />
     </q-card-section>
   </q-card>
 </template>
