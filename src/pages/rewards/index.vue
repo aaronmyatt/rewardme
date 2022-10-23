@@ -13,7 +13,7 @@ const { rewards } = useRewards()
       </h1>
       <p>Rewards can be claimed by spending points.</p>
     </Banner>
-    <q-card flat class="space-y-5">
+    <q-card flat class="space-y-5 p-4">
       <q-card-section class="p-0">
         <q-btn
           :disable="!!!rewards"
