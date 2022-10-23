@@ -47,23 +47,24 @@ export default function() {
     })
   }
 
-  function invalidClaim(reward: IReward) {
+  function claimable(reward: IReward) {
     const sufficientPoints = availablePoints.value >= reward.milestone
     if (sufficientPoints)
-      return
-
-    $q.notify({
-      type: 'negative',
-      message: 'You need to earn more reward points.',
-    })
-
-    return true
+      return true
+    return false
   }
 
   function claimReward(reward: IReward) {
-    if (invalidClaim(reward)) {
-      if (!reward.claimed) // insufficient points, but they wanna reset a previous claim
+    if (!claimable(reward)) {
+      if (!reward.claimed) {
         return
+      } // insufficient points, but they wanna reset a previous claim
+      else {
+        $q.notify({
+          type: 'negative',
+          message: 'You need to earn more reward points.',
+        })
+      }
     }
 
     rewards.map((r) => {
@@ -86,5 +87,6 @@ export default function() {
     deleteReward,
     claimReward,
     availablePoints,
+    claimable,
   }
 }
