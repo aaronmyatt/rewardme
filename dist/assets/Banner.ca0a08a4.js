@@ -1,0 +1,1 @@
+import{a as t}from"./index.756f4b73.js";import{o as r,c as n,n as o}from"./vendor.e940c656.js";const s={},c={class:"bg-primary p-4 text-center text-white"};function _(e,a){return r(),n("div",c,[o(e.$slots,"default")])}var d=t(s,[["render",_]]);export{d as _};
