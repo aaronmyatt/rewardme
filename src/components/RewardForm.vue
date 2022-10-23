@@ -75,21 +75,21 @@ function onReset() {
           @submit="onSubmit"
           @reset="onReset"
         >
-          <q-input v-model="reward.name" label="Name" required />
-          <q-input v-model.number="reward.milestone" type="number" label="Target" required />
-          <q-file v-model="rewardImage" :placeholder="reward.image" outlined>
+          <q-input v-model="reward.name" label="What is this reward?" required standout="bg-primary text-secondary" />
+          <q-input v-model.number="reward.milestone" type="number" label="Target" required standout="bg-primary text-secondary" hint="How many points are needed to achieve this reward?" />
+          <q-file v-model="rewardImage" label="A picture of the reward" standout="bg-primary text-secondary">
             <template #prepend>
               <q-icon name="attach_file" />
             </template>
             <template #append>
-              <q-avatar size="50px">
+              <q-avatar square size="90px">
                 <q-img
                   :src="previewImage"
                 />
               </q-avatar>
             </template>
           </q-file>
-          <q-checkbox v-model="reward.claimed" label="Claimed?" />
+          <q-checkbox v-model="reward.claimed" label="Have they received this reward already?" />
           <div class="flex justify-end">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
             <q-btn label="Submit" type="submit" color="primary" />

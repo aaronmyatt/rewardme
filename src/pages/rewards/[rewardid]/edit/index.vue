@@ -38,10 +38,7 @@ function onSubmit(reward: IReward) {
   })
 
   router.push({
-    name: 'rewards-rewardid',
-    params: {
-      rewardid: props.rewardid,
-    },
+    name: 'rewards',
   })
 }
 

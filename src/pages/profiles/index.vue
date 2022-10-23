@@ -37,10 +37,8 @@ const activeProfiles = computed(() => profiles.filter(profile => !profile.archiv
                 v-for="profile in activeProfiles" :key="profile.id"
               >
                 <q-item-section avatar>
-                  <q-avatar v-if="profile.image" w="50px" h="50px">
-                    <q-img :src="profileImages[profile.image]" />
-                  </q-avatar>
-                  <DefaultAvatar v-else w="50px" />
+                  <q-img v-if="profile.image" :src="profileImages[profile.image]" class="rounded-full" ratio="1" />
+                  <DefaultAvatar v-else />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="capitalize">
@@ -67,7 +65,7 @@ const activeProfiles = computed(() => profiles.filter(profile => !profile.archiv
                 <q-item-section side>
                   <q-btn stretch>
                     <carbon-overflow-menu-vertical />
-                    <q-menu border="1 white" :offset="[0,5]">
+                    <q-menu class="border-1 border-white" :offset="[0,5]">
                       <q-list style="min-width: 100px">
                         <q-item v-close-popup clickable class="bg-red-6 text-dark" @click="archiveProfile(profile)">
                           <q-item-section class="flex items-center">

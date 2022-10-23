@@ -25,7 +25,7 @@ export default {
       class: 'flex justify-end mt-5 space-x-2',
     }, () => [
       this.step > 1 ? backButton : undefined,
-      this.step < 6 ? nextButton : undefined,
+      this.step < 2 ? nextButton : undefined,
     ])
   },
 }

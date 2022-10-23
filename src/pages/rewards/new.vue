@@ -17,7 +17,9 @@ function onSubmit(reward: IReward) {
     caption: 'Reward Added',
   })
 
-  router.push('/rewards')
+  router.push({
+    name: 'rewards',
+  })
 }
 
 </script>

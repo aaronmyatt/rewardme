@@ -90,82 +90,83 @@ onUnmounted(() => {
                   v-model="profile.name"
                   label="Name"
                   required
-                  stack-label
                   autofocus
                   :error="!!nameError"
                   :error-message="nameError"
+                  bg-color="secondary"
+                  label-color="primary"
                 />
                 <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
               </q-step>
 
+              <!--              <q-step-->
+              <!--                :name="2"-->
+              <!--                title="Do you have a nickname?"-->
+              <!--                caption="Optional"-->
+              <!--                icon="sentiment_very_satisfied"-->
+              <!--              >-->
+              <!--                <q-input-->
+              <!--                  v-model="profile.nickname"-->
+              <!--                  label="Nickname"-->
+              <!--                  required-->
+              <!--                  stack-label-->
+              <!--                  autofocus-->
+              <!--                />-->
+              <!--                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />-->
+              <!--              </q-step>-->
+
+              <!--              <q-step-->
+              <!--                :name="3"-->
+              <!--                title="What's your favourite thing to do?"-->
+              <!--                icon="attractions"-->
+              <!--                caption="Optional"-->
+              <!--              >-->
+              <!--                <q-input v-model="profile.hobby" label="Hobby" stack-label autofocus />-->
+              <!--                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />-->
+              <!--              </q-step>-->
+              <!--              <q-step-->
+              <!--                :name="4"-->
+              <!--                title="When is your birthday?"-->
+              <!--                icon="event"-->
+              <!--                class="flex justify-center"-->
+              <!--                caption="Optional"-->
+              <!--              >-->
+              <!--                <q-date-->
+              <!--                  v-model="profile.dateofbirth"-->
+              <!--                  flat-->
+              <!--                  minimal-->
+              <!--                  :landscape="$q.screen.gt.sm"-->
+              <!--                />-->
+              <!--                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />-->
+              <!--              </q-step>-->
+              <!--              <q-step-->
+              <!--                :name="5"-->
+              <!--                title="What's your favourite colour?"-->
+              <!--                caption="Optional"-->
+              <!--                icon="palette"-->
+              <!--                class="flex justify-center"-->
+              <!--              >-->
+              <!--                <div-->
+              <!--                  :style="{-->
+              <!--                    backgroundColor: profile.color + '70',-->
+              <!--                    borderWidth: '5px',-->
+              <!--                    borderColor: profile.color-->
+              <!--                  }"-->
+              <!--                >-->
+              <!--                  <q-color v-model="profile.color" square class="w-[300px]" flat no-footer no-header default-view="palette" format-model="hex" />-->
+              <!--                </div>-->
+              <!--                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />-->
+              <!--              </q-step>-->
               <q-step
                 :name="2"
-                title="Do you have a nickname?"
-                caption="Optional"
-                icon="sentiment_very_satisfied"
-              >
-                <q-input
-                  v-model="profile.nickname"
-                  label="Nickname"
-                  required
-                  stack-label
-                  autofocus
-                />
-                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
-              </q-step>
-
-              <q-step
-                :name="3"
-                title="What's your favourite thing to do?"
-                icon="attractions"
-                caption="Optional"
-              >
-                <q-input v-model="profile.hobby" label="Hobby" stack-label autofocus />
-                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
-              </q-step>
-              <q-step
-                :name="4"
-                title="When is your birthday?"
-                icon="event"
-                class="flex justify-center"
-                caption="Optional"
-              >
-                <q-date
-                  v-model="profile.dateofbirth"
-                  flat
-                  minimal
-                  :landscape="$q.screen.gt.sm"
-                />
-                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
-              </q-step>
-              <q-step
-                :name="5"
-                title="What's your favourite colour?"
-                caption="Optional"
-                icon="palette"
-                class="flex justify-center"
-              >
-                <div
-                  :style="{
-                    backgroundColor: profile.color + '70',
-                    borderWidth: '5px',
-                    borderColor: profile.color
-                  }"
-                >
-                  <q-color v-model="profile.color" square class="w-[300px]" flat no-footer no-header default-view="palette" format-model="hex" />
-                </div>
-                <NewFormControls :step="step" :back-func="() => $refs.stepper.previous()" :next-func="() => $refs.stepper.next()" />
-              </q-step>
-              <q-step
-                :name="6"
                 title="Add a picture"
                 caption="Optional"
                 icon="photo_camera"
                 class=""
               >
-                <div class="flex justify-center space-y-2">
+                <div class="flex flex-col justify-center space-y-2">
                   <q-img
-                    class="w-1/2"
+                    v-if="previewImage"
                     :src="previewImage"
                   />
                   <q-file v-model="profileImage" outlined>
