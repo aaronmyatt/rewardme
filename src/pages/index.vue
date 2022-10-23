@@ -100,7 +100,7 @@ const editPointsAmount = ref(0)
         </q-card-section>
       </q-card>
 
-      <q-btn-group v-if="profile.id" spread outline class="row space-x-px font-bold">
+      <q-btn-group v-if="profile.id" spread outline class="row space-x-px font-bold rounded-xl">
         <q-btn class="bg-primary text-secondary text-base md:text-xl" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="10" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 10})" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="20" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 20})" />
@@ -109,7 +109,7 @@ const editPointsAmount = ref(0)
       </q-btn-group>
 
       <div v-if="profile.id" class="row space-x-4">
-        <q-btn flat stack class="col-6 flex-1 bg-secondary" no-caps push to="/profiles">
+        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" no-caps push to="/profiles">
           <ActiveUserAvatar class="bg-white rounded-full" :class="{'w-1/4': !profile.id, 'w-3/4': profile.id}" />
           <div class="font-bold">
             Switch Profile
