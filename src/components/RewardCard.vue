@@ -22,9 +22,10 @@ const untilClaimable = computed(() => {
 </script>
 
 <template>
-  <q-card>
+  <q-card class="rounded-xl">
     <q-card-section class="p-0">
       <q-img
+        class="rounded-t-xl"
         :ratio="16/9"
         :src="rewardImage"
         spinner-color="primary"
