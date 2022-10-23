@@ -8,10 +8,12 @@ const { rewards } = useRewards()
 <template>
   <q-page class="xl:w-2/3 md:mx-auto space-y-2 column">
     <Banner>
-      <h1 class="font-bold text-xl">
+      <h1 class="font-bold text-2xl">
         Create Rewards
       </h1>
-      <p>Rewards can be claimed by spending points.</p>
+      <p class="text-lg">
+        Rewards can be claimed by spending points.
+      </p>
     </Banner>
     <q-card flat class="space-y-5 p-4">
       <q-card-section class="p-0">
@@ -40,7 +42,7 @@ const { rewards } = useRewards()
       position="bottom-right"
       :offset="[25,25]"
     >
-      <q-btn :disable="!!!rewards" padding="15px" class="bg-primary text-secondary" to="/rewards/new" icon-right="redeem" label="Add Reward" no-caps />
+      <q-btn :disable="!!!rewards" padding="15px" class="bg-primary text-secondary" to="/rewards/new" icon-right="redeem" label="Add Reward" no-caps rounded />
     </q-page-sticky>
   </q-page>
 </template>

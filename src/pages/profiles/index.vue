@@ -14,7 +14,7 @@ const activeProfiles = computed(() => profiles.filter(profile => !profile.archiv
         Create Profiles
       </h1>
       <p class="text-lg">
-        Create as many profiles as you need. Track score and rewards for each independently
+        Create as many profiles as you need. Track scores and rewards for each independently
       </p>
     </Banner>
     <main class="p-4 xl:w-2/3 md:mx-auto space-y-2 column">
