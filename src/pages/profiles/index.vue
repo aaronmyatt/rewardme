@@ -10,10 +10,10 @@ const activeProfiles = computed(() => profiles.filter(profile => !profile.archiv
 <template>
   <q-page>
     <Banner>
-      <h1 class="font-bold text-2xl">
+      <h1 class="font-bold text-xl sm:text-2xl">
         Create Profiles
       </h1>
-      <p class="text-lg">
+      <p class="text-base sm:text-lg">
         Create as many profiles as you need. Track scores and rewards for each independently
       </p>
     </Banner>

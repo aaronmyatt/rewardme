@@ -8,10 +8,10 @@ const { rewards } = useRewards()
 <template>
   <q-page class="xl:w-2/3 md:mx-auto space-y-2 column">
     <Banner>
-      <h1 class="font-bold text-2xl">
+      <h1 class="font-bold text-xl sm:text-2xl">
         Create Rewards
       </h1>
-      <p class="text-lg">
+      <p class="text-base sm:text-lg">
         Rewards can be claimed by spending points.
       </p>
     </Banner>
