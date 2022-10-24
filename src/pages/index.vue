@@ -58,10 +58,10 @@ const editPointsAmount = ref(0)
             <ActiveUserAvatar />
           </div>
           <div class="col-9 column flex-nowrap">
-            <p class="row text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#4F5D90] leading-loose capitalize pl-6">
+            <p class="row text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#4F5D90] leading-loose capitalize pl-6">
               {{ profile && profile.name }}
             </p>
-            <div class="row items-center justify-center h-full text-center font-bold text-lg md:text-xl">
+            <div class="row items-center justify-center h-full text-center font-bold sm:text-lg md:text-xl">
               <div class="col-6">
                 <p class="text-[#4F5D90]">
                   {{ count }}
@@ -101,7 +101,7 @@ const editPointsAmount = ref(0)
       </q-card>
 
       <q-btn-group v-if="profile.id" spread outline class="row space-x-px font-bold rounded-xl">
-        <q-btn class="bg-primary text-secondary text-base md:text-xl" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
+        <q-btn class="bg-primary text-secondary md:text-xl" no-caps label="Edit Points" @click="openEditPointsDialog = !openEditPointsDialog" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="10" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 10})" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="20" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 20})" />
         <q-btn class="bg-primary text-secondary text-xl" no-caps label="50" @click="PubSub.publish(Topics.REWARD_BEHAVIOUR, {id: profile.id, change: 50})" />
@@ -110,12 +110,12 @@ const editPointsAmount = ref(0)
 
       <div v-if="profile.id" class="row space-x-4">
         <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" no-caps push to="/profiles">
-          <ActiveUserAvatar class="bg-white rounded-full" :class="{'w-1/4': !profile.id, 'w-3/4': profile.id}" />
+          <ActiveUserAvatar class="bg-white rounded-full w-3/4" />
           <div class="font-bold">
             Switch Profile
           </div>
         </q-btn>
-        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" padding="none" no-caps push to="/rewards">
+        <q-btn flat stack class="col-6 flex-1 bg-secondary rounded-xl" no-caps push to="/rewards">
           <DefaultReward class="w-3/4 h-auto" />
           <div>
             <span class="font-bold">Rewards</span>
