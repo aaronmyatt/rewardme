@@ -90,6 +90,7 @@ function onReset() {
             </template>
           </q-file>
           <q-checkbox v-model="reward.claimed" label="Have they received this reward already?" />
+          <q-checkbox v-model="reward.active" label="Is this the current goal??" />
           <div class="flex justify-end">
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
             <q-btn label="Submit" type="submit" color="primary" />
