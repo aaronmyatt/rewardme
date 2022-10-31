@@ -19,7 +19,7 @@ const { count } = useReinforcement()
 const profile = reactive({} as IProfile)
 const { getActiveProfile } = useProfiles()
 onMounted(() => {
-  Object.assign(profile, getActiveProfile())
+  Object.assign(profile, getActiveProfile.value)
 })
 const openEditPointsDialog = ref(false)
 const editPointsAmount = ref(0)

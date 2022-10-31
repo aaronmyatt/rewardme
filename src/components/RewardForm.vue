@@ -15,7 +15,7 @@ const emits = defineEmits(['submit'])
 const reward = reactive(props.modelValue || {} as IReward)
 
 onMounted(() => {
-  const activeProfile = getActiveProfile()
+  const activeProfile = getActiveProfile.value
   if (activeProfile && activeProfile.id) {
     Object.assign(reward, {
       ...reward,

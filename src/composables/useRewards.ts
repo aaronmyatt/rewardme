@@ -13,8 +13,10 @@ export default function() {
   const { count } = useReinforcement()
   const { getActiveProfile } = useProfile()
 
+  const availablePoints = computed(() => count.value - totalClaimed.value)
+
   onMounted(() => {
-    const activeProfile = getActiveProfile()
+    const activeProfile = getActiveProfile.value
     if (activeProfile) {
       const allRewards: IReward[] = store.getItem(StoreKeys.REWARDS) || []
       const usersRewards = allRewards.filter((reward) => {
@@ -31,7 +33,13 @@ export default function() {
     }
   })
 
-  const availablePoints = computed(() => count.value - totalClaimed.value)
+  whenever(getActiveProfile, () => {
+    const allRewards: IReward[] = store.getItem(StoreKeys.REWARDS) || []
+    const usersRewards = allRewards.filter((reward) => {
+      return reward.profile === getActiveProfile.value?.id
+    })
+    Object.assign(rewards, usersRewards)
+  })
 
   function deleteReward(reward: IReward) {
     rewards.map((r) => {

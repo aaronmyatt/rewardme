@@ -10,7 +10,7 @@ const $q = useQuasar()
 const profile = ref<IProfile>()
 
 onMounted(() => {
-  const activeProfile = getActiveProfile()
+  const activeProfile = getActiveProfile.value
   if (activeProfile)
     profile.value = activeProfile
 })

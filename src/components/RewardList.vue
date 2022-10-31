@@ -14,13 +14,15 @@ const props = defineProps<{
 
 const rewardImages = ref({} as Record<string, string>)
 
-props.rewards
-  .map(async(reward: IReward): Promise<void> => {
-    if (reward.image !== undefined) {
-      const image = await imageCache.getImage(reward.image)
-      if (image) rewardImages.value[reward.image] = image
-    }
-  })
+watchEffect(() => {
+  props.rewards
+    .map(async(reward: IReward): Promise<void> => {
+      if (reward.image !== undefined) {
+        const image = await imageCache.getImage(reward.image)
+        if (image) rewardImages.value[reward.image] = image
+      }
+    })
+})
 
 function byDateKey(dateKey: keyof Pick<IReward, 'updateddate' | 'createddate'>) {
   return (first: IReward, second: IReward) => {
@@ -28,6 +30,5 @@ function byDateKey(dateKey: keyof Pick<IReward, 'updateddate' | 'createddate'>) 
   }
 }
 
-const sortedRewards = Object.assign(props.rewards, [...props.rewards]
-  .sort(byDateKey('updateddate')))
+const sortedRewards = computed(() => [...props.rewards].sort(byDateKey('updateddate')))
 </script>

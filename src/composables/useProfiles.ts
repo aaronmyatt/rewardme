@@ -41,9 +41,7 @@ export default function() {
     router.push('/settings')
   }
 
-  function getActiveProfile() {
-    return profiles.find(profile => profile.active)
-  }
+  const getActiveProfile = computed(() => profiles.find(profile => profile.active))
 
   function archiveProfile(profile: IProfile) {
     profiles.map((p) => {

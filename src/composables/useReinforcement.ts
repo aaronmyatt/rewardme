@@ -19,7 +19,7 @@ export default function() {
   })
 
   function setActiveUsersCount() {
-    const profile = getActiveProfile()
+    const profile = getActiveProfile.value
     const reinforcement: IReinforcement[] = store.getItem(StoreKeys.REINFORCEMENT)
     if (profile) {
       const usersReinforcement = reinforcement.filter(r => r.id === profile.id).reduce((p: number, c) => p + c.count, 0)

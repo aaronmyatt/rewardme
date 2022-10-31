@@ -12,6 +12,7 @@ export const Reward = z.object(
     milestone: z.number().default(0),
     claimed: z.boolean().default(false),
     archived: z.boolean().default(false),
+    active: z.boolean().default(false),
   },
 )
 
