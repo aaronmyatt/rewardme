@@ -1,5 +1,5 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[18,18]" expand>
+  <q-page-sticky :position="$q.screen.lt.md ? 'bottom-left' : 'bottom-right'" :offset="$q.screen.lt.md ? [18,18] : [-18,-18]" expand>
     <q-btn fab color="red" @click="confirmDelete = true">
       <carbon-trash-can class="text-xl" />
     </q-btn>
@@ -31,6 +31,9 @@
 </template>
 
 <script setup lang="ts">
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 const confirmDelete = ref(false)
 
 const props = defineProps({
