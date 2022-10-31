@@ -59,7 +59,7 @@ const untilClaimable = computed(() => {
       >
         <carbon-edit />
       </q-btn>
-      <q-btn v-if="claimable(reward)" class="w-full" padding="0px" flat @click="claimReward(reward)">
+      <q-btn v-if="claimable(reward)" class="w-full" padding="0px" flat @click="() => claimReward(reward)">
         <RewardProgress
           :value="reward.milestone"
           :label="reward.claimed ? 'Reset' : 'Redeem'" size="30px"
