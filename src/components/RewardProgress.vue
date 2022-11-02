@@ -6,7 +6,7 @@
   </q-linear-progress>
 </template>
 <script setup lang="ts">
-import useReinforcement from '~/composables/useReinforcement'
+import useRewards from '~/composables/useRewards'
 
 const props = defineProps({
   value: {
@@ -24,7 +24,7 @@ const props = defineProps({
   },
 })
 
-const { count } = useReinforcement()
+const { availablePoints: count } = useRewards()
 
 const progress = computed(() => {
   return count.value / props.value
