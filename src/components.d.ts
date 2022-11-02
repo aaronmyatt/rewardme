@@ -10,8 +10,6 @@ declare module 'vue' {
     CarbonGift: typeof import('~icons/carbon/gift')['default']
     CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonStar: typeof import('~icons/carbon/star')['default']
-    CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     Controls: typeof import('./components/NewForm/Controls.vue')['default']
     DefaultAvatar: typeof import('./components/DefaultAvatar.vue')['default']
     DevJson: typeof import('./components/DevJson.vue')['default']
@@ -22,9 +20,10 @@ declare module 'vue' {
     ProfileMenu: typeof import('./components/ProfileMenu.vue')['default']
     README: typeof import('./components/README.md')['default']
     RewardCard: typeof import('./components/RewardCard.vue')['default']
+    RewardClaimedList: typeof import('./components/RewardClaimedList.vue')['default']
     RewardForm: typeof import('./components/RewardForm.vue')['default']
-    RewardList: typeof import('./components/RewardList.vue')['default']
     RewardProgress: typeof import('./components/RewardProgress.vue')['default']
+    RewardWishList: typeof import('./components/RewardWishList.vue')['default']
   }
 }
 
