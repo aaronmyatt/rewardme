@@ -6,13 +6,18 @@ import { StoreKeys } from '~/schemas'
 import type { IReward } from '~/schemas'
 
 const rewards = reactive([] as IReward[])
-const totalClaimed = ref(0)
 
 export default function() {
   const $q = useQuasar()
   const { count } = useReinforcement()
   const { getActiveProfile } = useProfile()
 
+  const totalClaimed = computed(() => rewards.reduce((p: number, c) => {
+    if (c.claimed)
+      return p + c.milestone
+
+    return p
+  }, 0))
   const availablePoints = computed(() => count.value - totalClaimed.value)
   const currentGoal = computed(() => rewards.find(r => r.active && !r.claimed))
 
@@ -24,13 +29,6 @@ export default function() {
         return reward.profile === activeProfile.id
       })
       Object.assign(rewards, usersRewards)
-
-      totalClaimed.value = rewards.reduce((p: number, c) => {
-        if (c.claimed)
-          return p + c.milestone
-
-        return p
-      }, 0)
     }
   })
 
@@ -42,6 +40,10 @@ export default function() {
     Object.assign(rewards, usersRewards)
   })
 
+  watch(rewards, (curr) => {
+    store.setItem(StoreKeys.REWARDS, curr)
+  })
+
   function deleteReward(reward: IReward) {
     rewards.map((r) => {
       if (r.id === reward.id)
@@ -49,7 +51,6 @@ export default function() {
 
       return r
     })
-    store.setItem(StoreKeys.REWARDS, rewards)
     $q.notify({
       type: 'negative',
       message: 'Reward Deleted',
@@ -83,7 +84,6 @@ export default function() {
       return r
     })
 
-    store.setItem(StoreKeys.REWARDS, rewards)
     $q.notify({
       type: reward.claimed ? 'positive' : 'warning',
       message: reward.claimed ? 'Reward Claimed' : 'Reward Reset',
