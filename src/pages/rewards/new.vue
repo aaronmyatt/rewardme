@@ -31,6 +31,13 @@ function onSubmit(reward: IReward) {
         New Reward
       </q-toolbar-title>
     </q-toolbar>
+    <q-toolbar inset>
+      <p>
+        Add the rewards your children want to their wishlist.
+        Discuss which one they would like to be their current goal.
+        Delight them with the reward when they reach the <strong>Target</strong> points.
+      </p>
+    </q-toolbar>
 
     <RewardForm @submit="onSubmit" />
   </div>
