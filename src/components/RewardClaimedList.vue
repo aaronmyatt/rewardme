@@ -10,11 +10,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import useRewards from '~/composables/useRewards'
 import RewardCard from '~/components/RewardCard.vue'
 import type { IReward } from '~/schemas'
-
-const { setAsGoal } = useRewards()
 
 const props = defineProps<{
   rewards: IReward[]
