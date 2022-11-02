@@ -14,6 +14,7 @@ export default function() {
   const { getActiveProfile } = useProfile()
 
   const availablePoints = computed(() => count.value - totalClaimed.value)
+  const currentGoal = computed(() => rewards.find(r => r.active && !r.claimed))
 
   onMounted(() => {
     const activeProfile = getActiveProfile.value
@@ -89,6 +90,18 @@ export default function() {
     })
   }
 
+  function setAsGoal(reward: IReward) {
+    rewards.map((r) => {
+      r.active = r.id === reward.id
+      return r
+    })
+
+    $q.notify({
+      type: 'positive',
+      message: 'Reward Goal Updated',
+    })
+  }
+
   return {
     totalClaimed,
     rewards,
@@ -96,5 +109,7 @@ export default function() {
     claimReward,
     availablePoints,
     claimable,
+    goal: currentGoal,
+    setAsGoal,
   }
 }
