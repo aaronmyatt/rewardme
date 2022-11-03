@@ -7,7 +7,8 @@
       :reward="reward"
       class="w-full cursor-pointer hover:shadow-xl"
       :show-progress="false"
-      :editable="false" @click="() => setAsGoal(reward)"
+      :editable="false"
+      @click="() => setAsGoal(reward)"
     />
   </div>
 </template>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { useQuasar } from 'quasar'
 import imageCache from '~/composites/imageCache'
 import type { IReward } from '~/schemas'
 import useRewards from '~/composables/useRewards'
+
+const $q = useQuasar()
 
 const { claimReward, availablePoints, claimable } = useRewards()
 
@@ -35,6 +38,21 @@ const untilClaimable = computed(() => {
 <template>
   <q-card class="rounded-xl">
     <q-card-section :horizontal="horizontal" class="p-0">
+      <q-btn
+        v-if="editable"
+        class="absolute right-0 z-50 rounded-none rounded-tr-xl"
+        :fab-mini="$q.screen.lt.sm"
+        :fab="$q.screen.gt.xs"
+        color="primary"
+        :to="{
+          name: 'rewards-rewardid-edit',
+          params: {
+            rewardid: props.reward.id
+          }
+        }"
+      >
+        <carbon-edit />
+      </q-btn>
       <q-card-section class="col-4" :class="{'p-0': !horizontal}">
         <q-img
           class="rounded-xl"
@@ -42,8 +60,9 @@ const untilClaimable = computed(() => {
           :src="rewardImage"
           spinner-color="primary"
           spinner-size="82px"
+          :class="{'rounded-b-none': reward.claimed}"
         >
-          <div v-if="!horizontal" class="text-base md:text-xl absolute bottom-0 left-0 text-left capitalize reward-name-container">
+          <div v-if="!horizontal" class="text-xs sm:text-base md:text-xl absolute bottom-0 left-0 text-left capitalize">
             <div class="space-x-4 flex">
               <div class="name">
                 {{ reward.name }}
@@ -56,7 +75,7 @@ const untilClaimable = computed(() => {
           </div>
         </q-img>
       </q-card-section>
-      <q-card-section v-if="horizontal" class="col-8 flex items-center">
+      <q-card-section v-if="horizontal" class="col-8 flex items-center p-0">
         <div class="text-xl md:text-2xl text-left capitalize reward-name-container">
           <div class="space-x-4 flex">
             <div class="name">
@@ -70,7 +89,7 @@ const untilClaimable = computed(() => {
         </div>
       </q-card-section>
     </q-card-section>
-    <q-card-section v-if="showProgress">
+    <q-card-section v-if="showProgress" :class="{'p-0 rounded-b-xl': horizontal}">
       <q-btn v-if="claimable(reward)" class="w-full" padding="0px" flat @click="() => claimReward(reward)">
         <RewardProgress
           :value="reward.milestone"
@@ -87,21 +106,6 @@ const untilClaimable = computed(() => {
         :bar-color="reward.claimed ? 'accent' : 'green'"
         :badge-color="reward.claimed ? 'green' : 'accent'"
       />
-    </q-card-section>
-    <q-card-section v-if="editable" class="p-0">
-      <q-btn
-        class="absolute top-0 right-0 -translate-y-8"
-        fab-mini
-        color="primary"
-        :to="{
-          name: 'rewards-rewardid-edit',
-          params: {
-            rewardid: props.reward.id
-          }
-        }"
-      >
-        <carbon-edit />
-      </q-btn>
     </q-card-section>
   </q-card>
 </template>
