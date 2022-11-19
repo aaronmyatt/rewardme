@@ -27,7 +27,7 @@ const editPointsAmount = ref(0)
 
 <template>
   <q-page>
-    <section v-if="!profile.id" class="px-10 py-40 bg-gradient-to-b from-[#07075c] to-[#7989c4] row justify-center items-center">
+    <section v-if="!profile.id" class="px-10 py-10 sm:py-20 md:py-40 bg-gradient-to-b from-[#07075c] to-[#7989c4] row justify-center items-center">
       <div class="col-xs-12 col-md-6 column items-center md:items-start justify-center md:justify-start">
         <div class="prose font-sans text-center md:text-left">
           <h1 class="text-white font-extrabold">
@@ -37,7 +37,7 @@ const editPointsAmount = ref(0)
             Good deeds, good rewards
           </h2>
           <h3 class="text-white">
-            RewardMe is the culmination of a parents journey to effectively guide their children to greatness.
+            RewardMe is the culmination of a parent's journey to effectively guide their children to greatness.
           </h3>
         </div>
         <q-btn flat class="bg-accent rounded-full mt-10 text-white md:self-start" padding="18px" no-caps push to="/profiles" size="xl" align="left">
