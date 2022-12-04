@@ -6,6 +6,7 @@
       :key="reward.id"
       :reward="reward"
       class="w-full"
+      :show-progress="false"
     />
   </div>
 </template>
