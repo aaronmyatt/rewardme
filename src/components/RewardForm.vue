@@ -40,12 +40,16 @@ onMounted(() => {
 const rewardImage = ref()
 const previewImage = ref()
 
+// since this is only used when a new image is uploaded,
+// it _should_ be safe to manipulate the file name
+// before it is saved to the cache
 watch(rewardImage, () => {
   const reader = new FileReader()
   reader.readAsDataURL(rewardImage.value as Blob)
+  const fileName = `${rewardImage.value.name}_${Date.now()}`
   reader.onload = async() => {
-    await imageCache.setImage(rewardImage.value.name, reader.result as string)
-    reward.image = rewardImage.value.name
+    await imageCache.setImage(fileName, reader.result as string)
+    reward.image = fileName
   }
 })
 
