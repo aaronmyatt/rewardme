@@ -4,6 +4,7 @@ import imageCache from '~/composites/imageCache'
 import { Reward } from '~/schemas'
 import type { IReward } from '~/schemas'
 import useProfiles from '~/composables/useProfiles'
+
 const $q = useQuasar()
 const router = useRouter()
 
@@ -31,7 +32,10 @@ onMounted(() => {
       timeout: 0,
       closeBtn: true,
       actions: [
-        { label: 'Go to Profiles', handler: () => router.push('/profiles') },
+        {
+          label: 'Go to Profiles',
+          handler: () => router.push('/profiles'),
+        },
       ],
     })
   }
@@ -81,7 +85,10 @@ function onReset() {
           @reset="onReset"
         >
           <q-input v-model="reward.name" label="What is this reward?" required standout="bg-primary text-secondary" />
-          <q-input v-model.number="reward.milestone" type="number" label="Target" required standout="bg-primary text-secondary" hint="How many points are needed to achieve this reward?" />
+          <q-input
+            v-model.number="reward.milestone" type="number" label="Target" required
+            standout="bg-primary text-secondary" hint="How many points are needed to achieve this reward?"
+          />
           <q-file v-model="rewardImage" label="A picture of the reward" standout="bg-primary text-secondary">
             <template #prepend>
               <q-icon name="attach_file" />
