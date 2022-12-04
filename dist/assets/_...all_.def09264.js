@@ -1,0 +1,1 @@
+import{a as r}from"./index.3e6f5067.js";import{o as c,c as n}from"./vendor.2cf8fbd6.js";var e={};const o={};function t(f,_){return c(),n("div",null," Not Found ")}typeof e=="function"&&e(o);var l=r(o,[["render",t]]);export{l as default};
