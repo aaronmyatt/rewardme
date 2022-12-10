@@ -7,11 +7,11 @@ import { useHead } from '@vueuse/head'
 useHead({
   title: 'Reward Me',
   meta: [
-    { name: 'description', content: 'Rewarding Better Behaviour' },
+    { name: 'description', content: 'Good deeds, good rewards' },
     { name: 'og:type', content: 'website' },
     { name: 'og:title', content: 'Reward Me' },
     { name: 'og:url', content: 'https://rewardme.me' },
-    { name: 'og:image', content: '/social.jpg' },
+    { name: 'og:image', content: 'https://rewardme.me/social.jpg' },
     { name: 'og:site_name', content: 'Reward Me' },
     { name: 'og:description', content: 'Good deeds, good rewards' },
     { name: 'twitter:card', content: 'summary' },
@@ -19,7 +19,7 @@ useHead({
     { name: 'twitter:title', content: 'Reward Me' },
     { name: 'twitter:url', content: 'https://rewardme.me' },
     { name: 'twitter:description', content: 'Good deeds, good rewards' },
-    { name: 'twitter:image', content: '/social.jpg' },
+    { name: 'twitter:image', content: 'https://rewardme.me/social.jpg' },
   ],
 })
 </script>
