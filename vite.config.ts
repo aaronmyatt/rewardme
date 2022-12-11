@@ -9,7 +9,6 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Markdown from 'vite-plugin-md'
-import { VitePWA } from 'vite-plugin-pwa'
 import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
@@ -106,34 +105,34 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/antfu/vite-plugin-pwa
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['logo.svg', 'robots.txt', 'safari-pinned-tab.svg'],
-      manifest: {
-        name: 'Reward Me',
-        short_name: 'RewardMe',
-        theme_color: '#7989C4',
-        icons: [
-          {
-            src: '/logo.svg',
-            sizes: '192x192',
-            type: 'image/svg',
-          },
-          {
-            src: '/logo.svg',
-            sizes: '512x512',
-            type: 'image/svg',
-          },
-          {
-            src: '/logo.svg',
-            sizes: '512x512',
-            type: 'image/svg',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-    }),
+    // // https://github.com/antfu/vite-plugin-pwa
+    // VitePWA({
+    //   registerType: 'autoUpdate',
+    //   includeAssets: ['logo.svg', 'robots.txt', 'safari-pinned-tab.svg'],
+    //   manifest: {
+    //     name: 'Reward Me',
+    //     short_name: 'RewardMe',
+    //     theme_color: '#7989C4',
+    //     icons: [
+    //       {
+    //         src: '/logo.svg',
+    //         sizes: '192x192',
+    //         type: 'image/svg',
+    //       },
+    //       {
+    //         src: '/logo.svg',
+    //         sizes: '512x512',
+    //         type: 'image/svg',
+    //       },
+    //       {
+    //         src: '/logo.svg',
+    //         sizes: '512x512',
+    //         type: 'image/svg',
+    //         purpose: 'any maskable',
+    //       },
+    //     ],
+    //   },
+    // }),
 
     // https://github.com/antfu/vite-plugin-inspect
     Inspect({
@@ -146,12 +145,6 @@ export default defineConfig({
     fs: {
       strict: true,
     },
-  },
-
-  // https://github.com/antfu/vite-ssg
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
   },
 
   optimizeDeps: {
