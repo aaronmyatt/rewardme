@@ -13,7 +13,10 @@
           </q-item>
           <q-separator />
           <q-item v-close-popup clickable to="/settings">
-            <q-item-section>Profile Settings</q-item-section>
+            <q-item-section>Settings</q-item-section>
+          </q-item>
+          <q-item v-close-popup clickable to="/activity-log">
+            <q-item-section>Activity Log</q-item-section>
           </q-item>
         </q-list>
       </q-menu>

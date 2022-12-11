@@ -49,7 +49,6 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
-        '@vueuse/head',
         '@vueuse/core',
         'vitest',
       ],
@@ -152,7 +151,6 @@ export default defineConfig({
       'vue',
       'vue-router',
       '@vueuse/core',
-      '@vueuse/head',
     ],
     exclude: [
       'vue-demi',

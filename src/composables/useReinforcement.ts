@@ -7,8 +7,10 @@ import type { IReinforcement } from '~/schemas'
 export default function() {
   const { getActiveProfile } = useProfiles()
   const count = ref(0)
+  const history = reactive([] as IReinforcement[])
 
   onMounted(() => {
+    Object.assign(history, store.getItem(StoreKeys.REINFORCEMENT))
     setActiveUsersCount()
   })
 
@@ -20,14 +22,14 @@ export default function() {
 
   function setActiveUsersCount() {
     const profile = getActiveProfile.value
-    const reinforcement: IReinforcement[] = store.getItem(StoreKeys.REINFORCEMENT)
     if (profile) {
-      const usersReinforcement = reinforcement.filter(r => r.id === profile.id).reduce((p: number, c) => p + c.count, 0)
+      const usersReinforcement = history.filter(r => r.id === profile.id).reduce((p: number, c) => p + c.count, 0)
       count.value = usersReinforcement || 0
     }
   }
 
   return {
     count,
+    history,
   }
 }
