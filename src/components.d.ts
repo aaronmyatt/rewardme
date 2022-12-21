@@ -25,7 +25,6 @@ declare module '@vue/runtime-core' {
     NewProfileForm: typeof import('./components/NewProfileForm.vue')['default']
     ProfileForm: typeof import('./components/ProfileForm.vue')['default']
     ProfileMenu: typeof import('./components/ProfileMenu.vue')['default']
-    README: typeof import('./components/README.md')['default']
     RewardCard: typeof import('./components/RewardCard.vue')['default']
     RewardClaimedList: typeof import('./components/RewardClaimedList.vue')['default']
     RewardForm: typeof import('./components/RewardForm.vue')['default']
