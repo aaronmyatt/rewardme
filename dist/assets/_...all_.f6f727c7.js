@@ -1,1 +1,0 @@
-import{l as e,o as n,c as t}from"./index.58ebc28d.js";const o={},c={};function _(r,l){return n(),t("div",null," Not Found ")}typeof o=="function"&&o(c);const a=e(c,[["render",_]]);export{a as default};
