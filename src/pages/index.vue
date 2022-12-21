@@ -144,6 +144,14 @@ setTimeout(() => {
               </q-toolbar>
             </q-card-section>
             <q-card-section>
+              <div class="q-pa-md">
+                <q-video
+                  :ratio="16/9"
+                  src="https://www.youtube.com/embed/Af9rrW4TZes?rel=0"
+                />
+              </div>
+            </q-card-section>
+            <q-card-section>
               <Kids class="w-full h-auto" />
             </q-card-section>
           </q-card>
