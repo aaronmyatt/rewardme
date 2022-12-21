@@ -16,13 +16,18 @@ import Logo from '~/png/logo.svg'
 
 const { totalClaimed } = useRewards()
 const { count } = useReinforcement()
-const profile = reactive({} as IProfile)
 const { getActiveProfile } = useProfiles()
+
+const profile = reactive({} as IProfile)
 onMounted(() => {
   Object.assign(profile, getActiveProfile.value)
 })
 const openEditPointsDialog = ref(false)
 const editPointsAmount = ref(0)
+const showTip = ref(false)
+setTimeout(() => {
+  showTip.value = true
+}, 5000)
 </script>
 
 <template>
@@ -44,6 +49,12 @@ const editPointsAmount = ref(0)
           <div class="font-bold text-base md:text-2xl">
             Create a free profile >
           </div>
+          <q-tooltip v-model="showTip" class="animate-bounce bg-transparent text-white font-bold text-center text-xs sm:text-sm" anchor="bottom middle" self="top middle" :offset="[10, 10]">
+            <p>Get started by creating a profile for one of your children</p>
+          </q-tooltip>
+          <q-tooltip v-model="showTip" class="bg-transparent text-white font-bold text-center text-xs sm:text-sm" anchor="bottom middle" self="top middle" :offset="[10, 30]">
+            <p>Or watch an introductory video 👇</p>
+          </q-tooltip>
         </q-btn>
       </div>
       <div class="col-xs-12 col-md-6 column justify-center items-center">
