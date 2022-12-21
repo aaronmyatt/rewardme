@@ -12,11 +12,11 @@ export default function() {
   onMounted(() => {
     Object.assign(history, store.getItem(StoreKeys.REINFORCEMENT))
     setActiveUsersCount()
-  })
-
-  PubSub.subscribe(Topics.UPDATE_STORE, () => {
-    setTimeout(() => {
-      setActiveUsersCount()
+    PubSub.subscribe(Topics.UPDATE_STORE, () => {
+      setTimeout(() => {
+        Object.assign(history, store.getItem(StoreKeys.REINFORCEMENT))
+        setActiveUsersCount()
+      })
     })
   })
 
